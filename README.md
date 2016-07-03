@@ -41,3 +41,13 @@ execute command in vim:
 
     :so ~/.vimrc
     :PlugInstall
+
+Manual Installation
+---
+
+```
+mkdir -p ~/.vim/after/syntax/javascript
+wget https://raw.githubusercontent.com/MaxMEllon/vim-jsx-pretty/master/after/syntax/jsx.vim
+cp jsx.vim ~/.vim/after/syntax/javascript/jsx.vim
+```
+
