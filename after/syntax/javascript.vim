@@ -25,8 +25,9 @@ syntax region jsxRegion
       \ start=+<\z([^ /!?<>"']\+\)+
       \ skip=+<!--\_.\{-}-->+
       \ end=+</\z1\_\s\{-}[^(=>)]>+
+      \ matchgroup=jsxCloseTag end=+/>+
       \ fold
-      \ contains=jsxTag,jsxCloseTag,jsxRegion,jsxComment,jsxEscapeJs,@Spell
+      \ contains=jsxTag,jsxCloseTag,jsxRegion,jsxComment,javascriptParens,javascriptBlock,@javascriptRegionHook,@Spell
       \ keepend
       \ extend
 
