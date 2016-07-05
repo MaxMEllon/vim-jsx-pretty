@@ -51,3 +51,6 @@ wget https://raw.githubusercontent.com/MaxMEllon/vim-jsx-pretty/master/after/syn
 cp javascript.vim ~/.vim/after/syntax/javascript/javascript.vim
 ```
 
+LICENSE
+---
+[MIT](./LICENSE.txt)
