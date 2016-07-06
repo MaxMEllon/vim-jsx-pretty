@@ -25,9 +25,9 @@ syntax region jsxRegion
       \ start=+<\z([^ /!?<>"']\+\)+
       \ skip=+<!--\_.\{-}-->+
       \ end=+</\z1\_\s\{-}[^(=>)]>+
-      \ matchgroup=jsxCloseTag end=+/>+
+      \ end=+>\n)\@=+
       \ fold
-      \ contains=jsxTag,jsxCloseTag,jsxRegion,jsxComment,javascriptParens,javascriptBlock,@javascriptRegionHook,@Spell
+      \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,javascriptParens,javascriptBlock,@javascriptRegionHook,@Spell
       \ keepend
       \ extend
 
@@ -36,8 +36,9 @@ syntax region jsxRegion
 syntax region jsxTag
       \ start=+<[^ /!?<>"']\@=+
       \ end=+>+
+      \ matchgroup=jsxCloseTag end=+/>+
       \ contained
-      \ contains=jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs
+      \ contains=jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,jsxCloseString
 
 " </tag>
 " ~~~~~~
@@ -45,6 +46,10 @@ syntax match jsxCloseTag
       \ +</[^ /!?<>"']\+>+
       \ contained
       \ contains=jsxNamespace,jsxAttribPunct
+
+syntax match jsxCloseString
+      \ +/>+
+      \ contained
 
 " <!-- -->
 " ~~~~~~~~
@@ -110,6 +115,7 @@ highlight def link jsxComment Error
 highlight def link jsxAttrib Type
 highlight def link jsxEscapeJs jsxEscapeJs
 highlight def link jsxCloseTag Identifier
+highlight def link jsxCloseString Identifier
 
 let b:current_syntax = 'javascript.jsx'
 
