@@ -7,7 +7,7 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let s:xml_cpo_save = &cpo
+let s:jsx_cpo = &cpo
 set cpo&vim
 
 syntax case match
@@ -119,6 +119,6 @@ highlight def link jsxCloseString Identifier
 
 let b:current_syntax = 'javascript.jsx'
 
-let &cpo = s:xml_cpo_save
-unlet s:xml_cpo_save
+let &cpo = s:jsx_cpo
+unlet s:jsx_cpo
 
