@@ -4,13 +4,9 @@ vim-jsx-pretty
 Demo
 ---
 
-- maxmellon/vim-jsx-pretty
-
-![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty.png)
-
-- mxw/vim-jsx
-
-![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx.png)
+|maxmellon/vim-jsx-pretty|mxw/vim-jsx|
+|---|---|
+|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty.png)|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx.png)|
 
 Requirement
 ---
