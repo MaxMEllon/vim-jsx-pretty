@@ -21,6 +21,8 @@ if exists('s:current_syntax')
   let b:current_syntax = s:current_syntax
 endif
 
+"  <tag></tag>
+" s~~~~~~~~~~~e
 syntax region jsxRegion
       \ start=+<\z([^ /!?<>"']\+\)+
       \ skip=+<!--\_.\{-}-->+
