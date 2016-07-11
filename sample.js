@@ -6,7 +6,11 @@ class Hoge extends React.Component {
 
   renderHoge() {
     return (
-      <div>
+      <div
+        foo={
+          <bar />
+        }
+      >
         <span>hoge</span>
       </div>
     );
@@ -17,7 +21,7 @@ class Hoge extends React.Component {
       <div>
         {(hoge => {
           if (hoge) {
-            return (<div />);
+            return <div />;
           }
         })()}
       </div>
@@ -25,5 +29,10 @@ class Hoge extends React.Component {
   }
 }
 
-
+const hoge = () => {
+  ReactDOM.render(
+    <div></div>,
+    document.getElementById('body');
+  );
+}
 

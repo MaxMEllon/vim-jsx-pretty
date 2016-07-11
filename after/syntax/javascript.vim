@@ -29,8 +29,11 @@ syntax region jsxRegion
       \ end=+</\z1\_\s\{-}[^(=>)]>+
       \ end=+>\n\?\s*)\@=+
       \ end=+>\n\?\s*}\@=+
+      \ end=+>;\@=+
+      \ end=+\n\?\s\*,+
       \ fold
-      \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,javascriptParens,javascriptBlock,@javascriptRegionHook,@Spell
+      \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,javascriptParens,
+                \javascriptBlock,@javascriptRegionHook,@Spell
       \ keepend
       \ extend
 
@@ -41,7 +44,8 @@ syntax region jsxTag
       \ end=+>+
       \ matchgroup=jsxCloseTag end=+/>+
       \ contained
-      \ contains=jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,jsxCloseString
+      \ contains=jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
+                \jsxCloseString
 
 " </tag>
 " ~~~~~~
@@ -102,7 +106,7 @@ syntax region jsxString contained start=+'+ end=+'+ contains=jsxEntity,@Spell di
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
     \ contained
-    \ contains=javascriptIdentifier,javascriptTemplate,javascriptArrowFunc
+    \ contains=javascriptIdentifier,javascriptTemplate,javascriptArrowFunc,jsxRegion
     \ matchgroup=jsxCloseTag end=+>+
     \ start=+{+
     \ end=+}+
