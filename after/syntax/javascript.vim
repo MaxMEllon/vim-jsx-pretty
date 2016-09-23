@@ -31,6 +31,7 @@ syntax region jsxRegion
       \ end=+>\n\?\s*}\@=+
       \ end=+>;\@=+
       \ end=+\n\?\s\*,+
+      \ end=+\s*:\@=+
       \ fold
       \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,javascriptParens,
                 \jsFuncBlock,javascriptBlock,@javascriptRegionHook,@Spell
@@ -125,6 +126,7 @@ highlight def link jsxEscapeJs jsxEscapeJs
 highlight def link jsxCloseTag Identifier
 highlight def link jsxCloseString Identifier
 
+highlight def link jsObjectKey Type
 highlight def link jsArrowFuncArgs Type
 highlight def link jsFuncArgs Type
 
