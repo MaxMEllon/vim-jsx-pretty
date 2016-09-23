@@ -11,6 +11,10 @@ Demo
 Requirement
 ---
 
+- [**pangloss/vim-javascript**](https://github.com/pangloss/vim-javascript)
+
+or
+
 - [othree/yajs.vim](https://github.com/othree/yajs.vim)
 
 ##### Optional
