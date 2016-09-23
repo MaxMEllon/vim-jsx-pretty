@@ -26,19 +26,27 @@ Installation
 
 your `~/.vimrc`:
 
-- with: vim-javascript
+- with: vim-javascript (**Recommendation**)
 
+    ```vim
     Plug 'pangloss/vim-javascript'
     Plug 'maxmellon/vim-jsx-pretty'
 
+    " optional
+    Plug 'othree/javascript-libraries-syntax.vim'
+    Plug 'othree/es.next.syntax.vim'
+    ```
+
 - with: yajs.vim
 
+    ```vim
     Plug 'othree/yajs.vim'
     Plug 'maxmellon/vim-jsx-pretty'
 
     " optional
     Plug 'othree/javascript-libraries-syntax.vim'
     Plug 'othree/es.next.syntax.vim'
+    ```
 
 execute command in vim:
 
