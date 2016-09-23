@@ -125,6 +125,9 @@ highlight def link jsxEscapeJs jsxEscapeJs
 highlight def link jsxCloseTag Identifier
 highlight def link jsxCloseString Identifier
 
+highlight def link jsArrowFuncArgs Type
+highlight def link jsFuncArgs Type
+
 let b:current_syntax = 'javascript.jsx'
 
 let &cpo = s:jsx_cpo
