@@ -106,7 +106,8 @@ syntax region jsxString contained start=+'+ end=+'+ contains=jsxEntity,@Spell di
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
     \ contained
-    \ contains=,jsFuncBlock,javascriptIdentifier,javascriptTemplate,javascriptArrowFunc,jsxRegion
+    \ contains=jsArrowFuncArgs,jsFuncBlock,jsParen,javascriptIdentifier,
+              \javascriptTemplate,javascriptArrowFunc,jsxRegion
     \ matchgroup=jsxCloseTag end=+>+
     \ start=+{+
     \ end=+}+
