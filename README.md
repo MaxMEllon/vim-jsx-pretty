@@ -26,6 +26,13 @@ Installation
 
 your `~/.vimrc`:
 
+- with: vim-javascript
+
+    Plug 'pangloss/vim-javascript'
+    Plug 'maxmellon/vim-jsx-pretty'
+
+- with: yajs.vim
+
     Plug 'othree/yajs.vim'
     Plug 'maxmellon/vim-jsx-pretty'
 

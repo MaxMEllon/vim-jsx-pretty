@@ -33,7 +33,7 @@ syntax region jsxRegion
       \ end=+\n\?\s\*,+
       \ fold
       \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,javascriptParens,
-                \javascriptBlock,@javascriptRegionHook,@Spell
+                \jsFuncBlock,javascriptBlock,@javascriptRegionHook,@Spell
       \ keepend
       \ extend
 
@@ -106,7 +106,7 @@ syntax region jsxString contained start=+'+ end=+'+ contains=jsxEntity,@Spell di
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
     \ contained
-    \ contains=javascriptIdentifier,javascriptTemplate,javascriptArrowFunc,jsxRegion
+    \ contains=,jsFuncBlock,javascriptIdentifier,javascriptTemplate,javascriptArrowFunc,jsxRegion
     \ matchgroup=jsxCloseTag end=+>+
     \ start=+{+
     \ end=+}+
