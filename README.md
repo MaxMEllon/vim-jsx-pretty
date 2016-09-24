@@ -52,6 +52,20 @@ your `~/.vimrc`:
     Plug 'othree/es.next.syntax.vim'
     ```
 
+- Colorful style (**vim-javascript only**)
+
+    ```vim
+    augroup VimJsxPretty
+      autocmd!
+      autocmd VimEnter * highlight jsNoise ctermfg=197 cterm=bold guifg=#F92672 gui=bold
+      autocmd VimEnter * highlight jsArrowFunction ctermfg=197 cterm=bold guifg=#F92672 gui=bold
+      autocmd VimEnter * highlight jsObjectBraces ctermfg=197 cterm=bold guifg=#F92672 gui=bold
+      autocmd VimEnter * highlight jsFuncBraces ctermfg=118 guifg=#A6E22E
+      autocmd VimEnter * highlight jsFuncCall ctermfg=228 guifg=#A6A5AE
+      autocmd VimEnter * highlight jsBrackets cterm=bold gui=bold
+    augroup END
+    ```
+
 execute command in vim:
 
     :so ~/.vimrc
