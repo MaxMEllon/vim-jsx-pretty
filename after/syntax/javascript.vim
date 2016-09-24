@@ -107,8 +107,9 @@ syntax region jsxString contained start=+'+ end=+'+ contains=jsxEntity,@Spell di
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
     \ contained
-    \ contains=jsArrowFuncArgs,jsFuncBlock,jsParen,javascriptIdentifier,
-              \javascriptTemplate,javascriptArrowFunc,jsxRegion
+    \ contains=jsTemplateString,jsObject,jsArrowFuncArgs,jsFuncBlock,
+              \jsParen,javascriptIdentifier,javascriptTemplate,
+              \javascriptArrowFunc,jsxRegion
     \ matchgroup=jsxCloseTag end=+>+
     \ start=+{+
     \ end=+}+
@@ -126,7 +127,7 @@ highlight def link jsxEscapeJs jsxEscapeJs
 highlight def link jsxCloseTag Identifier
 highlight def link jsxCloseString Identifier
 
-highlight def link jsObjectKey Type
+highlight def link jsObjectKey String
 highlight def link jsArrowFuncArgs Type
 highlight def link jsFuncArgs Type
 
