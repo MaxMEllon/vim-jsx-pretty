@@ -3,7 +3,7 @@
 "
 " Language: javascript.jsx
 " Maintainer: MaxMellon <maxmellon1994@gmail.com>
-" Depends: othree/yajs.vim
+" Depends: pangloss/vim-javascript
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

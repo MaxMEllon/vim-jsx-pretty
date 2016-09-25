@@ -36,3 +36,4 @@ const hoge = () => {
   );
 }
 
+export default Hoge;
