@@ -4,9 +4,15 @@ vim-jsx-pretty
 Demo
 ---
 
-|maxmellon/vim-jsx-pretty|mxw/vim-jsx|
-|---|---|
-|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty.png)|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx.png)|
+- syntax
+
+|vim-jsx-pretty<br />(add colorful config)|vim-jsx-pretty|mxw/vim-jsx|
+|---|---|---|
+|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty-colorful.png)|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty.png)|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx.png)|
+
+- auto indent (**with vim-javascript**)
+
+![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/auto-indent.gif)
 
 Requirement
 ---
@@ -70,15 +76,6 @@ execute command in vim:
 
     :so ~/.vimrc
     :PlugInstall
-
-Manual Installation
----
-
-```
-mkdir -p ~/.vim/after/syntax/javascript
-wget https://raw.githubusercontent.com/MaxMEllon/vim-jsx-pretty/master/after/syntax/javascript.vim
-cp javascript.vim ~/.vim/after/syntax/javascript/javascript.vim
-```
 
 LICENSE
 ---
