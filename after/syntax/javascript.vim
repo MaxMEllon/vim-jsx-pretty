@@ -32,7 +32,7 @@ syntax region jsxRegion
       \ end=+>;\@=+
       \ end=+\n\?\s\*,+
       \ end=+\s*,\@=+
-      \ end=+\s*:\@=+
+      \ end=+\s\+:\@=+
       \ fold
       \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,javascriptParens,
                 \jsFuncBlock,javascriptBlock,@javascriptRegionHook,@Spell
