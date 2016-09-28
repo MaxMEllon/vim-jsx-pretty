@@ -63,12 +63,12 @@ your `~/.vimrc`:
     ```vim
     augroup VimJsxPretty
       autocmd!
-      autocmd VimEnter * highlight jsNoise ctermfg=197 cterm=bold guifg=#F92672 gui=bold
-      autocmd VimEnter * highlight jsArrowFunction ctermfg=197 cterm=bold guifg=#F92672 gui=bold
-      autocmd VimEnter * highlight jsObjectBraces ctermfg=197 cterm=bold guifg=#F92672 gui=bold
-      autocmd VimEnter * highlight jsFuncBraces ctermfg=118 guifg=#A6E22E
-      autocmd VimEnter * highlight jsFuncCall ctermfg=228 guifg=#A6A5AE
-      autocmd VimEnter * highlight jsBrackets cterm=bold gui=bold
+      autocmd VimEnter *.js,*.jsx highlight jsNoise ctermfg=197 cterm=bold guifg=#F92672 gui=bold
+      autocmd VimEnter *.js,*.jsx highlight jsArrowFunction ctermfg=197 cterm=bold guifg=#F92672 gui=bold
+      autocmd VimEnter *.js,*.jsx highlight jsObjectBraces ctermfg=197 cterm=bold guifg=#F92672 gui=bold
+      autocmd VimEnter *.js,*.jsx highlight jsFuncBraces ctermfg=118 guifg=#A6E22E
+      autocmd VimEnter *.js,*.jsx highlight jsFuncCall ctermfg=228 guifg=#A6A5AE
+      autocmd VimEnter *.js,*.jsx highlight jsBrackets cterm=bold gui=bold
     augroup END
     ```
 
