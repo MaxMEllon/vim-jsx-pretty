@@ -128,7 +128,7 @@ highlight def link jsxEscapeJs jsxEscapeJs
 highlight def link jsxCloseTag Identifier
 highlight def link jsxCloseString Identifier
 
-highlight def link jsObjectKey String
+highlight def link jsObjectKey Label
 highlight def link jsArrowFuncArgs Type
 highlight def link jsFuncArgs Type
 
