@@ -58,24 +58,41 @@ your `~/.vimrc`:
     Plug 'othree/es.next.syntax.vim'
     ```
 
-- Colorful style (**vim-javascript only**)
-
-    ```vim
-    augroup VimJsxPretty
-      autocmd!
-      autocmd VimEnter *.js,*.jsx highlight jsNoise ctermfg=197 cterm=bold guifg=#F92672 gui=bold
-      autocmd VimEnter *.js,*.jsx highlight jsArrowFunction ctermfg=197 cterm=bold guifg=#F92672 gui=bold
-      autocmd VimEnter *.js,*.jsx highlight jsObjectBraces ctermfg=197 cterm=bold guifg=#F92672 gui=bold
-      autocmd VimEnter *.js,*.jsx highlight jsFuncBraces ctermfg=118 guifg=#A6E22E
-      autocmd VimEnter *.js,*.jsx highlight jsFuncCall ctermfg=228 guifg=#A6A5AE
-      autocmd VimEnter *.js,*.jsx highlight jsBrackets cterm=bold gui=bold
-    augroup END
-    ```
-
 execute command in vim:
 
     :so ~/.vimrc
     :PlugInstall
+
+Configuration
+---
+
+|name|default|detail|
+|---|---|---|
+|`g:vim_jsx_pretty_enable_jsx_highlight`|1|jsx highlight flag|
+|`g:vim_jsx_pretty_colorful_config`|0|colorful config flag|
+
+
+- Disable jsx highlight (but highlight group is set to jsx syntax. so this plugin expect to add highlight settings in case of disabled.)
+
+    ```vim
+    let g:vim_jsx_pretty_enable_jsx_highlight = 1 " default 1
+    ```
+
+- Colorful style (**vim-javascript only**)
+
+    ```vim
+    let g:vim_jsx_pretty_colorful_config = 1 " default 0
+    ```
+
+### Highlight group list
+
+|name|place|
+|---|---|
+|jsxTag| `<tag id="sample">`<br />`~~~~~~~~~~~~~~~~~`|
+|jsxTagName| `<tag id="sample">`<br />`_~~~_____________`|
+|jsxEqual| `<tag id="sample">`<br />`_______~_________`|
+|jsxString| `<tag id="sample">`<br />`________~~~~~~~~_`|
+|jsxCloseTag| `</tag> ｜ <tag />`<br />`~~~~~~ ｜  _____~~` |
 
 LICENSE
 ---

@@ -118,19 +118,28 @@ syntax region jsxEscapeJs
 syntax cluster jsExpression add=jsxRegion
 syntax cluster javascriptNoReserved add=jsxRegion
 
-highlight def link jsxTag Function
-highlight def link jsxTagName Function
-highlight def link jsxString String
-highlight def link jsxNameSpace Function
-highlight def link jsxComment Error
-highlight def link jsxAttrib Type
-highlight def link jsxEscapeJs jsxEscapeJs
-highlight def link jsxCloseTag Identifier
-highlight def link jsxCloseString Identifier
+let s:vim_jsx_pretty_enable_jsx_highlight = get(g:, 'vim_jsx_pretty_enable_jsx_highlight', 1)
 
-highlight def link jsObjectKey Label
-highlight def link jsArrowFuncArgs Type
-highlight def link jsFuncArgs Type
+if s:vim_jsx_pretty_enable_jsx_highlight == 1
+  highlight def link jsxTag Function
+  highlight def link jsxTagName Function
+  highlight def link jsxString String
+  highlight def link jsxNameSpace Function
+  highlight def link jsxComment Error
+  highlight def link jsxAttrib Type
+  highlight def link jsxEscapeJs jsxEscapeJs
+  highlight def link jsxCloseTag Identifier
+  highlight def link jsxCloseString Identifier
+endif
+
+let s:vim_jsx_pretty_colorful_config = get(g:, 'vim_jsx_pretty_colorful_config', 0)
+
+if s:vim_jsx_pretty_colorful_config == 1
+  highlight def link jsObjectKey Label
+  highlight def link jsArrowFuncArgs Type
+  highlight def link jsFuncArgs Type
+endif
+
 
 let b:current_syntax = 'javascript.jsx'
 
