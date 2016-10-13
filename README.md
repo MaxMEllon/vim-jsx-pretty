@@ -75,7 +75,7 @@ Configuration
 - Disable jsx highlight (but highlight group is set to jsx syntax. so this plugin expect to add highlight settings in case of disabled.)
 
     ```vim
-    let g:vim_jsx_pretty_enable_jsx_highlight = 1 " default 1
+    let g:vim_jsx_pretty_enable_jsx_highlight = 0 " default 1
     ```
 
 - Colorful style (**vim-javascript only**)
