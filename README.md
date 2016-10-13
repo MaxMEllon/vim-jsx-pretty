@@ -66,7 +66,7 @@ execute command in vim:
 Configuration
 ---
 
-|name|default|detail|
+|name|default|description|
 |---|---|---|
 |`g:vim_jsx_pretty_enable_jsx_highlight`|1|jsx highlight flag|
 |`g:vim_jsx_pretty_colorful_config`|0|colorful config flag|
@@ -90,6 +90,7 @@ Configuration
 |---|---|
 |jsxTag| `<tag id="sample">`<br />`~~~~~~~~~~~~~~~~~`|
 |jsxTagName| `<tag id="sample">`<br />`_~~~_____________`|
+|jsxjsxAttrib| `<tag id="sample">`<br />`_____~~__________`|
 |jsxEqual| `<tag id="sample">`<br />`_______~_________`|
 |jsxString| `<tag id="sample">`<br />`________~~~~~~~~_`|
 |jsxCloseTag| `</tag> ｜ <tag />`<br />`~~~~~~ ｜  _____~~` |
