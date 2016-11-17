@@ -92,6 +92,10 @@ function! GetJsxIndent()
       let ind = ind + s:sw()
     endif
 
+    if getline(v:lnum - 1) =~? ':' && getline(v:lnum - 2) =~? '?'
+      let ind = ind - s:sw() * 2
+    endif
+
     " return ( | return (
     "   <div>  |   <div>
     "   </div> |   </div>
