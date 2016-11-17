@@ -84,6 +84,10 @@ function! GetJsxIndent()
         \ SynJSXContinues(cursyn, prevsyn)
     let ind = XmlIndentGet(v:lnum, 0)
 
+    if cursyn == 0 || && (getline(v:lnum - 1) =~? '(' || getline(v:lnum - 1) =~? '{')
+      let ind = ind + s:sw()
+    endif
+
     if getline(v:lnum) =~? s:endtag
       let ind = ind - s:sw()
     endif
