@@ -24,7 +24,7 @@ endif
 "  <tag></tag>
 " s~~~~~~~~~~~e
 syntax region jsxRegion
-      \ start=+<\z([^ /!?<>"']\+\)+
+      \ start=+<\z([^ /!?<>"'=:]\+\)+
       \ skip=+<!--\_.\{-}-->+
       \ end=+</\z1\_\s\{-}[^(=>)]>+
       \ end=+>\n\?\s*)\@=+
@@ -42,7 +42,7 @@ syntax region jsxRegion
 " <tag id="sample">
 " s~~~~~~~~~~~~~~~e
 syntax region jsxTag
-      \ start=+<[^ /!?<>"']\@=+
+      \ start=+<[^ /!?<>"'=:]\@=+
       \ end=+>+
       \ matchgroup=jsxCloseTag end=+/>+
       \ contained
@@ -108,12 +108,17 @@ syntax region jsxString contained start=+'+ end=+'+ contains=jsxEntity,@Spell di
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
     \ contained
-    \ contains=jsTemplateString,jsObject,jsArrowFuncArgs,jsFuncBlock,
-              \jsParen,javascriptIdentifier,javascriptTemplate,
-              \javascriptArrowFunc,jsxRegion
+    \ contains=jsTemplateString,jsObject,jsArrowFuncArgs,
+              \jsFlowDefinition,
+              \jsFuncBlock,jsParen,javascriptIdentifier,
+              \javascriptTemplate,javascriptArrowFunc,
+              \jsxRegion
     \ matchgroup=jsxCloseTag end=+>+
     \ start=+{+
     \ end=+}+
+
+syntax match jsxIfOperator +?+
+syntax match jsxElseOperator +:+
 
 syntax cluster jsExpression add=jsxRegion
 syntax cluster javascriptNoReserved add=jsxRegion

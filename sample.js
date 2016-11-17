@@ -2,6 +2,9 @@ class Hoge extends React.Component {
   constructor(props) {
     super(props);
     this.state = { };
+    if ( foo <= 300 ) {
+
+    }
   }
 
   renderHoge() {
@@ -18,6 +21,8 @@ class Hoge extends React.Component {
 
   render() {
     return (
+      <div>
+      </div>
       <div>
         {(hoge => {
           if (hoge) {
