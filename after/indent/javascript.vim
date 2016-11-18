@@ -68,6 +68,14 @@ function! SynJSXDepth(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsxRegion"'))
 endfunction
 
+function! SynJsFuncBrace(syns)
+  return len(filter(copy(a:syns), 'v:val ==# "jsFuncBraces"'))
+endfunction
+
+function! SynJSXCloseTag(syns)
+  return len(filter(copy(a:syns), 'v:val ==# "jsxCloseTag"'))
+endfunction
+
 function! SynJSXContinues(cursyn, prevsyn)
   let curdepth = SynJSXDepth(a:cursyn)
   let prevdepth = SynJSXDepth(a:prevsyn)
@@ -79,12 +87,13 @@ endfunction
 function! GetJsxIndent()
   let cursyn  = SynSOL(v:lnum)
   let prevsyn = SynEOL(v:lnum - 1)
+  let nextsyn = SynEOL(v:lnum + 1)
 
   if (SynXMLish(prevsyn) || SynJSXBlockEnd(prevsyn)) &&
         \ SynJSXContinues(cursyn, prevsyn)
     let ind = XmlIndentGet(v:lnum, 0)
 
-    if cursyn == 0 || && (getline(v:lnum - 1) =~? '(' || getline(v:lnum - 1) =~? '{')
+    if getline(v:lnum - 1) =~? '(' || getline(v:lnum - 1) =~? '{'
       let ind = ind + s:sw()
     endif
 
@@ -96,8 +105,34 @@ function! GetJsxIndent()
       let ind = ind + s:sw()
     endif
 
+    " <div>                  | <div>
+    "   {(test => test.length|   {(test => test.length
+    "      ? 'foo'           |      ? 'foo'
+    "      : 'bar'           |      : 'bar'
+    "   ####)()}             |   )()} <----
+    " </div>                 | </div>
     if getline(v:lnum - 1) =~? ':' && getline(v:lnum - 2) =~? '?'
       let ind = ind - s:sw() * 2
+    endif
+
+    " <div       | <div
+    "   foo={    |   foo={
+    "     <Bar />|     <Bar />
+    "   ##}      |   } <--
+    " >          | >
+    if getline(v:lnum) =~? '}' && SynJSXCloseTag(prevsyn) && !SynJsFuncBrace(nextsyn)
+      let ind = ind - s:sw()
+    endif
+
+    " </div>               | </div>
+    "   {(hoge => {        |   {(hoge => {
+    "     if (hoge) {      |     if (hoge) {
+    "       return <div />;|       return <div />;
+    "     }                |     }
+    "   })()}              |   })()}
+    " ##</div>             | </div> <--
+    if match(getline(v:lnum), '<[^!?<>]\+>', '') != -1 && SynJsFuncBrace(prevsyn)
+      let ind = ind - s:sw()
     endif
 
     " return ( | return (

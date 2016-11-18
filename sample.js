@@ -11,7 +11,13 @@ class Hoge extends React.Component {
     return (
       <div
         foo={
-          <bar />
+          <bar foo='aaa' >
+            <div
+              hoge={
+                <div></div>
+              }
+            />
+          </bar>
         }
       >
         <span>hoge</span>
