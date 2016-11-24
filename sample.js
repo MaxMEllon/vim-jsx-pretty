@@ -2,9 +2,21 @@ class Hoge extends React.Component {
   constructor(props) {
     super(props);
     this.state = { };
-    if ( foo <= 300 ) {
-
+    if (foo <= 300) {
+      return <div style={{margin:0}}>
+        Hello world
+      </div>
     }
+  }
+
+  hoge() {
+    Hoge.poge(
+      <div>
+        <div></div>
+        {this.hoge}
+        <div></div>
+      </div>
+    );
   }
 
   renderHoge() {
@@ -14,7 +26,9 @@ class Hoge extends React.Component {
           <bar foo='aaa' >
             <div
               hoge={
-                <div></div>
+                <div
+                  hoge={'aaa'}
+                ></div>
               }
             />
           </bar>
@@ -39,6 +53,28 @@ class Hoge extends React.Component {
     );
   }
 }
+
+export const Hoge = () => (
+  <div>
+    <div
+      hoge={aaa}
+      hoge={aaa}
+    ></div>
+    <div
+      hoge={aaa}
+      hoge={aaa}
+    />
+  </div>
+)
+
+ReactDOM.render(
+  <div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>,
+  document.getElementById('body');
+)
 
 const hoge = () => {
   ReactDOM.render(

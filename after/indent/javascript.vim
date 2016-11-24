@@ -35,6 +35,7 @@ else
 endif
 
 let s:endtag = '^\s*\/\?>\s*;\='
+let s:real_endtag = '\s*<\/\+[A-Za-z]*>'
 
 let s:has_vim_javascript = exists('*GetJavascriptIndent')
 
@@ -68,12 +69,36 @@ function! SynJSXDepth(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsxRegion"'))
 endfunction
 
-function! SynJsFuncBrace(syns)
+function! SynJsFuncBraces(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsFuncBraces"'))
+endfunction
+
+function! SynJsRepeatBraces(syns)
+  return len(filter(copy(a:syns), 'v:val ==# "jsRepeatBraces"'))
+endfunction
+
+function! SynJsIfElseBlock(syns)
+  return len(filter(copy(a:syns), 'v:val ==# "jsIfElseBlock"'))
 endfunction
 
 function! SynJSXCloseTag(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsxCloseTag"'))
+endfunction
+
+function! SynJsReturn(syns)
+  return len(filter(copy(a:syns), 'v:val ==# "jsReturn"'))
+endfunction
+
+function! SynJsxAttrib(syns)
+  return len(filter(copy(a:syns), 'v:val ==# "jsxAttrib"'))
+endfunction
+
+function! SynJsxTag(syns)
+  return len(filter(copy(a:syns), 'v:val ==# "jsxTag"'))
+endfunction
+
+function! SynJsxEscapeJs(syns)
+  return len(filter(copy(a:syns), 'v:val ==# "jsxEscapeJs"'))
 endfunction
 
 function! SynJSXContinues(cursyn, prevsyn)
@@ -93,10 +118,6 @@ function! GetJsxIndent()
         \ SynJSXContinues(cursyn, prevsyn)
     let ind = XmlIndentGet(v:lnum, 0)
 
-    if getline(v:lnum - 1) =~? '(' || getline(v:lnum - 1) =~? '{'
-      let ind = ind + s:sw()
-    endif
-
     if getline(v:lnum) =~? s:endtag
       let ind = ind - s:sw()
     endif
@@ -105,33 +126,19 @@ function! GetJsxIndent()
       let ind = ind + s:sw()
     endif
 
-    " <div>                  | <div>
-    "   {(test => test.length|   {(test => test.length
-    "      ? 'foo'           |      ? 'foo'
-    "      : 'bar'           |      : 'bar'
-    "   ####)()}             |   )()} <----
-    " </div>                 | </div>
-    if getline(v:lnum - 1) =~? ':' && getline(v:lnum - 2) =~? '?'
-      let ind = ind - s:sw() * 2
+
+    " <div           | <div
+    "   hoge={       |   hoge={
+    "   <div></div>  |   ##<div></div>
+    if SynJsxEscapeJs(prevsyn) && !(getline(v:lnum - 1) =~? '}') && getline(v:lnum - 1) =~? '{'
+      let ind = ind + s:sw()
     endif
 
-    " <div       | <div
-    "   foo={    |   foo={
-    "     <Bar />|     <Bar />
-    "   ##}      |   } <--
-    " >          | >
-    if getline(v:lnum) =~? '}' && SynJSXCloseTag(prevsyn) && !SynJsFuncBrace(nextsyn)
-      let ind = ind - s:sw()
-    endif
-
-    " </div>               | </div>
-    "   {(hoge => {        |   {(hoge => {
-    "     if (hoge) {      |     if (hoge) {
-    "       return <div />;|       return <div />;
-    "     }                |     }
-    "   })()}              |   })()}
-    " ##</div>             | </div> <--
-    if match(getline(v:lnum), '<[^!?<>]\+>', '') != -1 && SynJsFuncBrace(prevsyn)
+    " <div            | <div
+    "   hoge={        |   hoge={
+    "     <div></div> |     <div></div>
+    "     }           |   }##
+    if SynJsxEscapeJs(cursyn) && getline(v:lnum) =~? '}' && !(getline(v:lnum) =~? '{')
       let ind = ind - s:sw()
     endif
 
@@ -139,7 +146,11 @@ function! GetJsxIndent()
     "   <div>  |   <div>
     "   </div> |   </div>
     " ##);     | ); <--
-    if getline(v:lnum) =~? ');'
+    if getline(v:lnum) =~? ');\?' && SynJSXCloseTag(prevsyn)
+      let ind = ind - s:sw()
+    endif
+
+    if (SynJsIfElseBlock(cursyn) || SynJsRepeatBraces(cursyn)) && SynJSXCloseTag(prevsyn)
       let ind = ind - s:sw()
     endif
   else
