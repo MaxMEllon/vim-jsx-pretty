@@ -34,8 +34,8 @@ syntax region jsxRegion
       \ end=+\s*,\@=+
       \ end=+\s\+:\@=+
       \ fold
-      \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,javascriptParens,
-                \jsFuncBlock,javascriptBlock,@javascriptRegionHook,@Spell
+      \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,jsFuncBlock,
+                \@Spell
       \ keepend
       \ extend
 
@@ -72,14 +72,6 @@ syntax match jsxEntityPunct contained "[&.;]"
 syntax match jsxTagName
     \ +[<]\@<=[^ /!?<>"']\++
     \ contained
-    \ contains=jsxNamespace,jsxTagHook
-    \ display
-
-" <tag:hoge key={this.props.key}>
-"      ~~~~
-syntax match jsxNamespace
-    \ +\(<\|</\)\@<=[^ /!?<>"':]\+[:]\@=+
-    \ contained
     \ display
 
 " <tag key={this.props.key}>
@@ -108,11 +100,8 @@ syntax region jsxString contained start=+'+ end=+'+ contains=jsxEntity,@Spell di
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
     \ contained
-    \ contains=jsTemplateString,jsObject,jsArrowFuncArgs,
-              \jsFlowDefinition,
-              \jsFuncBlock,jsParen,javascriptIdentifier,
-              \javascriptTemplate,javascriptArrowFunc,
-              \jsxRegion
+    \ contains=jsTemplateString,jsObject,jsArrowFuncArgs,jsFuncBlock,
+              \jsFlowDefinition,jsFuncBlock,jsParen,jsxRegion
     \ matchgroup=jsxCloseTag end=+>+
     \ start=+{+
     \ end=+}+
