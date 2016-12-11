@@ -8,11 +8,11 @@ Demo
 
 |vim-jsx-pretty<br />(add colorful config)|vim-jsx-pretty|mxw/vim-jsx|
 |---|---|---|
-|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty-colorful.png)|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty.png)|![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx.png)|
+|![vim-jsx-pretty colorful](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty-colorful.png)|![vim-jsx-pretty](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty.png)|![vim-jsx](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx.png)|
 
 - auto indent (**with vim-javascript**)
 
-![](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/auto-indent.gif)
+![Auto indent demo](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/auto-indent.gif)
 
 Requirement
 ---
@@ -22,12 +22,6 @@ Requirement
 or
 
 - [othree/yajs.vim](https://github.com/othree/yajs.vim)
-
-##### Optional
-
-- [othree/javascript-libraries-syntax.vim](https://github.com/othree/javascript-libraries-syntax.vim)
-- [othree/es.next.syntax.vim](https://github.com/othree/es.next.syntax.vim)
-l
 
 Installation
 ---
@@ -41,10 +35,6 @@ your `~/.vimrc`:
     ```vim
     Plug 'pangloss/vim-javascript'
     Plug 'maxmellon/vim-jsx-pretty'
-
-    " optional
-    Plug 'othree/javascript-libraries-syntax.vim'
-    Plug 'othree/es.next.syntax.vim'
     ```
 
 - with: yajs.vim
@@ -52,10 +42,6 @@ your `~/.vimrc`:
     ```vim
     Plug 'othree/yajs.vim'
     Plug 'maxmellon/vim-jsx-pretty'
-
-    " optional
-    Plug 'othree/javascript-libraries-syntax.vim'
-    Plug 'othree/es.next.syntax.vim'
     ```
 
 execute command in vim:
