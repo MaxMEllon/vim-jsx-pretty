@@ -42,11 +42,11 @@ let s:has_vim_javascript = exists('*GetJavascriptIndent')
 let s:true = !0
 let s:false = 0
 
-function! SynSOL(lnum)
+function! s:syn_sol(lnum)
   return map(synstack(a:lnum, 1), 'synIDattr(v:val, "name")')
 endfunction
 
-function! SynEOL(lnum)
+function! s:syn_eol(lnum)
   let lnum = prevnonblank(a:lnum)
   let col = strlen(getline(lnum))
   return map(synstack(lnum, col), 'synIDattr(v:val, "name")')
@@ -56,66 +56,50 @@ function! SynAttrJSX(synattr)
   return a:synattr =~ "^jsx"
 endfunction
 
-function! SynXMLish(syns)
+function! s:syn_xmlish(syns)
   return SynAttrJSX(get(a:syns, -1))
 endfunction
 
-function! SynJSXBlockEnd(syns)
+function! s:syn_jsx_block_end(syns)
   return get(a:syns, -1) =~ '\%(js\|javascript\)Braces' ||
       \  SynAttrJSX(get(a:syns, -2))
 endfunction
 
-function! SynJSXDepth(syns)
+function! s:syn_jsx_depth(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsxRegion"'))
 endfunction
 
-function! SynJsFuncBraces(syns)
-  return len(filter(copy(a:syns), 'v:val ==# "jsFuncBraces"'))
-endfunction
-
-function! SynJsRepeatBraces(syns)
+function! s:syn_js_repeat_braces(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsRepeatBraces"'))
 endfunction
 
-function! SynJsIfElseBlock(syns)
+function! s:syn_jsx_else_block(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsIfElseBlock"'))
 endfunction
 
-function! SynJSXCloseTag(syns)
+function! s:syn_jsx_close_tag(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsxCloseTag"'))
 endfunction
 
-function! SynJsReturn(syns)
-  return len(filter(copy(a:syns), 'v:val ==# "jsReturn"'))
-endfunction
-
-function! SynJsxAttrib(syns)
-  return len(filter(copy(a:syns), 'v:val ==# "jsxAttrib"'))
-endfunction
-
-function! SynJsxTag(syns)
-  return len(filter(copy(a:syns), 'v:val ==# "jsxTag"'))
-endfunction
-
-function! SynJsxEscapeJs(syns)
+function! s:syn_jsx_escapejs(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsxEscapeJs"'))
 endfunction
 
-function! SynJSXContinues(cursyn, prevsyn)
-  let curdepth = SynJSXDepth(a:cursyn)
-  let prevdepth = SynJSXDepth(a:prevsyn)
+function! s:syn_jsx_continues(cursyn, prevsyn)
+  let curdepth = s:syn_jsx_depth(a:cursyn)
+  let prevdepth = s:syn_jsx_depth(a:prevsyn)
 
   return prevdepth == curdepth ||
       \ (prevdepth == curdepth + 1 && get(a:cursyn, -1) ==# 'jsxRegion')
 endfunction
 
 function! GetJsxIndent()
-  let cursyn  = SynSOL(v:lnum)
-  let prevsyn = SynEOL(v:lnum - 1)
-  let nextsyn = SynEOL(v:lnum + 1)
+  let cursyn  = s:syn_sol(v:lnum)
+  let prevsyn = s:syn_eol(v:lnum - 1)
+  let nextsyn = s:syn_eol(v:lnum + 1)
 
-  if (SynXMLish(prevsyn) || SynJSXBlockEnd(prevsyn)) &&
-        \ SynJSXContinues(cursyn, prevsyn)
+  if (s:syn_xmlish(prevsyn) || s:syn_jsx_block_end(prevsyn)) &&
+        \ s:syn_jsx_continues(cursyn, prevsyn)
     let ind = XmlIndentGet(v:lnum, 0)
 
     if getline(v:lnum) =~? s:endtag
@@ -126,11 +110,10 @@ function! GetJsxIndent()
       let ind = ind + s:sw()
     endif
 
-
     " <div           | <div
     "   hoge={       |   hoge={
     "   <div></div>  |   ##<div></div>
-    if SynJsxEscapeJs(prevsyn) && !(getline(v:lnum - 1) =~? '}') && getline(v:lnum - 1) =~? '{'
+    if s:syn_jsx_escapejs(prevsyn) && !(getline(v:lnum - 1) =~? '}') && getline(v:lnum - 1) =~? '{'
       let ind = ind + s:sw()
     endif
 
@@ -138,7 +121,7 @@ function! GetJsxIndent()
     "   hoge={        |   hoge={
     "     <div></div> |     <div></div>
     "     }           |   }##
-    if SynJsxEscapeJs(cursyn) && getline(v:lnum) =~? '}' && !(getline(v:lnum) =~? '{')
+    if s:syn_jsx_escapejs(cursyn) && getline(v:lnum) =~? '}' && !(getline(v:lnum) =~? '{')
       let ind = ind - s:sw()
     endif
 
@@ -146,11 +129,11 @@ function! GetJsxIndent()
     "   <div>  |   <div>
     "   </div> |   </div>
     " ##);     | ); <--
-    if getline(v:lnum) =~? ');\?' && SynJSXCloseTag(prevsyn)
+    if getline(v:lnum) =~? ');\?' && s:syn_jsx_close_tag(prevsyn)
       let ind = ind - s:sw()
     endif
 
-    if (SynJsIfElseBlock(cursyn) || SynJsRepeatBraces(cursyn)) && SynJSXCloseTag(prevsyn)
+    if (s:syn_jsx_else_block(cursyn) || s:syn_js_repeat_braces(cursyn)) && s:syn_jsx_close_tag(prevsyn)
       let ind = ind - s:sw()
     endif
   else
