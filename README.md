@@ -58,19 +58,21 @@ Configuration
 |`g:vim_jsx_pretty_colorful_config`|0|colorful config flag|
 
 
-- Disable jsx highlight (but highlight group is set to jsx syntax. so this plugin expect to add highlight settings in case of disabled.)
+If you set `g:vim_jsx_pretty_enable_jsx_highlight`, Disable jsx highlight.
+But highlight group is setten to jsx syntax. So you should set manual
+highlight setting.
 
-    ```vim
-    let g:vim_jsx_pretty_enable_jsx_highlight = 0 " default 1
-    ```
+```vim
+let g:vim_jsx_pretty_enable_jsx_highlight = 0 " default 1
+```
 
-- Colorful style (**vim-javascript only**)
+Colorful style (**vim-javascript only**)
 
-    ```vim
-    let g:vim_jsx_pretty_colorful_config = 1 " default 0
-    ```
+```vim
+let g:vim_jsx_pretty_colorful_config = 1 " default 0
+```
 
-### Highlight group list
+### Syntax group list
 
 |name|place|
 |---|---|
@@ -80,6 +82,11 @@ Configuration
 |jsxEqual| `<tag id="sample">`<br />`_______~_________`|
 |jsxString| `<tag id="sample">`<br />`________~~~~~~~~_`|
 |jsxCloseTag| `</tag> ｜ <tag />`<br />`~~~~~~ ｜  _____~~` |
+
+Inspiration
+---
+
+- [vim-jsx](https://github.com/mxw/vim-jsx)
 
 LICENSE
 ---
