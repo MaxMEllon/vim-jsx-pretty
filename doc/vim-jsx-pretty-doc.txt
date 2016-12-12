@@ -48,7 +48,7 @@ CONFIG                                                  *vim-jsx-pretty-config*
 - *g:vim_jsx_pretty_enable_jsx_highlight*
 
 If you set 'g:vim_jsx_pretty_enable_jsx_highlight', Disable jsx highlight.
-But highlight group is setten to jsx syntax. So you should set manual
+But highlight group is set to jsx syntax. So you should set manual
 highlight setting.
 
   - Example: >

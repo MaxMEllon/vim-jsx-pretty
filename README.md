@@ -37,17 +37,27 @@ your `~/.vimrc`:
     Plug 'maxmellon/vim-jsx-pretty'
     ```
 
-- with: yajs.vim
+- with: yajs.vim (If you use neovim, doesn't work.)
 
     ```vim
     Plug 'othree/yajs.vim'
     Plug 'maxmellon/vim-jsx-pretty'
     ```
 
-execute command in vim:
+  If you want to use `yajs.vim`, you have to manually install indent config.
+  Because, `yajs.vim` not include indent config.
 
+  ```bash
+  $ mkdir -p ~/.vim/after/indent # if you use `nvim`, then ~/.config/nvim/after/indent
+  $ wget https://github.com/pangloss/vim-javascript/blob/master/indent/javascript.vim -O ~/.vim/after/indent/javascript.vim
+  ```
+
+- Execute command in vim:
+
+    ```vim
     :so ~/.vimrc
     :PlugInstall
+    ```
 
 Configuration
 ---
@@ -59,7 +69,7 @@ Configuration
 
 
 If you set `g:vim_jsx_pretty_enable_jsx_highlight`, Disable jsx highlight.
-But highlight group is setten to jsx syntax. So you should set manual
+But highlight group is set to jsx syntax. So you should set manual
 highlight setting.
 
 ```vim
