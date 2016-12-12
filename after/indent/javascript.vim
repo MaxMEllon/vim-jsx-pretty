@@ -52,17 +52,17 @@ function! s:syn_eol(lnum)
   return map(synstack(lnum, col), 'synIDattr(v:val, "name")')
 endfunction
 
-function! SynAttrJSX(synattr)
+function! s:syn_attr_jsx(synattr)
   return a:synattr =~ "^jsx"
 endfunction
 
 function! s:syn_xmlish(syns)
-  return SynAttrJSX(get(a:syns, -1))
+  return s:syn_attr_jsx(get(a:syns, -1))
 endfunction
 
 function! s:syn_jsx_block_end(syns)
   return get(a:syns, -1) =~ '\%(js\|javascript\)Braces' ||
-      \  SynAttrJSX(get(a:syns, -2))
+      \  s:syn_attr_jsx(get(a:syns, -2))
 endfunction
 
 function! s:syn_jsx_depth(syns)
