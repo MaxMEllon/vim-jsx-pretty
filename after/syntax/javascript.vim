@@ -100,11 +100,10 @@ syntax region jsxString contained start=+'+ end=+'+ contains=jsxEntity,@Spell di
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
     \ contained
-    \ contains=jsTemplateString,jsObject,jsArrowFuncArgs,jsFuncBlock,
-              \jsFlowDefinition,jsFuncBlock,jsParen,jsxRegion
-    \ matchgroup=jsxCloseTag end=+>+
+    \ contains=jsBlock,jsxRegion
     \ start=+{+
-    \ end=+}+
+    \ end=++
+    \ extend
 
 syntax match jsxIfOperator +?+
 syntax match jsxElseOperator +:+
