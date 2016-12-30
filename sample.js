@@ -39,6 +39,15 @@ class Hoge extends React.Component {
     );
   }
 
+  test() {
+    return (
+      <div>
+        <Input a='a' />
+        <Button onClick={this.kepe.bind(this)} />
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>

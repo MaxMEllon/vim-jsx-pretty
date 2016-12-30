@@ -34,6 +34,7 @@ else
   endfunction
 endif
 
+let s:starttag = '^\s*<'
 let s:endtag = '^\s*\/\?>\s*;\='
 let s:real_endtag = '\s*<\/\+[A-Za-z]*>'
 
@@ -65,7 +66,7 @@ function! s:syn_jsx_block_end(syns)
       \  s:syn_attr_jsx(get(a:syns, -2))
 endfunction
 
-function! s:syn_jsx_depth(syns)
+function! s:syn_jsx_region(syns)
   return len(filter(copy(a:syns), 'v:val ==# "jsxRegion"'))
 endfunction
 
@@ -86,8 +87,8 @@ function! s:syn_jsx_escapejs(syns)
 endfunction
 
 function! s:syn_jsx_continues(cursyn, prevsyn)
-  let curdepth = s:syn_jsx_depth(a:cursyn)
-  let prevdepth = s:syn_jsx_depth(a:prevsyn)
+  let curdepth = s:syn_jsx_region(a:cursyn)
+  let prevdepth = s:syn_jsx_region(a:prevsyn)
 
   return prevdepth == curdepth ||
       \ (prevdepth == curdepth + 1 && get(a:cursyn, -1) ==# 'jsxRegion')
@@ -113,7 +114,13 @@ function! GetJsxIndent()
     " <div           | <div
     "   hoge={       |   hoge={
     "   <div></div>  |   ##<div></div>
-    if s:syn_jsx_escapejs(prevsyn) && !(getline(v:lnum - 1) =~? '}') && getline(v:lnum - 1) =~? '{'
+    if s:syn_jsx_escapejs(prevsyn) && !(getline(v:lnum - 1) =~? '}')
+          \&& getline(v:lnum - 1) =~? '{'
+      let ind = ind + s:sw()
+    endif
+
+    if getline(v:lnum) =~? s:starttag
+          \&& getline(v:lnum) =~? '}' && getline(v:lnum) =~? '{'
       let ind = ind + s:sw()
     endif
 
@@ -121,7 +128,8 @@ function! GetJsxIndent()
     "   hoge={        |   hoge={
     "     <div></div> |     <div></div>
     "     }           |   }##
-    if s:syn_jsx_escapejs(cursyn) && getline(v:lnum) =~? '}' && !(getline(v:lnum) =~? '{')
+    if s:syn_jsx_escapejs(cursyn) && getline(v:lnum) =~? '}'
+          \&& !(getline(v:lnum) =~? '{')
       let ind = ind - s:sw()
     endif
 
@@ -133,7 +141,8 @@ function! GetJsxIndent()
       let ind = ind - s:sw()
     endif
 
-    if (s:syn_jsx_else_block(cursyn) || s:syn_js_repeat_braces(cursyn)) && s:syn_jsx_close_tag(prevsyn)
+    if (s:syn_jsx_else_block(cursyn) || s:syn_js_repeat_braces(cursyn))
+          \&& s:syn_jsx_close_tag(prevsyn)
       let ind = ind - s:sw()
     endif
   else
