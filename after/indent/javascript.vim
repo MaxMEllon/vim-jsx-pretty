@@ -120,7 +120,7 @@ function! GetJsxIndent()
     endif
 
     if getline(v:lnum) =~? s:starttag
-          \&& getline(v:lnum) =~? '}' && getline(v:lnum) =~? '{'
+          \&& !getline(v:lnum) =~? '}' && getline(v:lnum) =~? '{'
       let ind = ind + s:sw()
     endif
 
