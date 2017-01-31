@@ -31,7 +31,7 @@ syntax region jsxRegion
       \ end=+>\n\?\s*}\@=+
       \ end=+>;\@=+
       \ end=+\n\?\s\*,+
-      \ end=+\s*,\@=+
+      \ end=+\s*>,\@=+
       \ end=+\s\+:\@=+
       \ fold
       \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,jsFuncBlock,

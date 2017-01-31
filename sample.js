@@ -50,8 +50,12 @@ class Hoge extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="aaa, aaaa">
+        <div className="aaa, aaaa, aaaaaa">
+
+        </div>
       </div>
+
       <div>
         {(hoge => {
           if (hoge) {
