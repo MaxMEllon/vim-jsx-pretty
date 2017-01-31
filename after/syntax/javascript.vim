@@ -24,7 +24,7 @@ endif
 "  <tag></tag>
 " s~~~~~~~~~~~e
 syntax region jsxRegion
-      \ start=+<\z([^ /!?<>"'=:]\+\)+
+      \ start=+<\z([^ /!?<>="':]\+\)+
       \ skip=+<!--\_.\{-}-->+
       \ end=+</\z1\_\s\{-}[^(=>)]>+
       \ end=+>\n\?\s*)\@=+
@@ -42,7 +42,7 @@ syntax region jsxRegion
 " <tag id="sample">
 " s~~~~~~~~~~~~~~~e
 syntax region jsxTag
-      \ start=+<[^ /!?<>"'=:]\@=+
+      \ start=+<[^ /!?<>"':]\@=+
       \ end=+>+
       \ matchgroup=jsxCloseTag end=+/>+
       \ contained
@@ -86,7 +86,7 @@ syntax match jsxAttribPunct +[:.]+ contained display
 
 " <tag id="sample">
 "        ~
-syntax match jsxEqual +=+ display
+" syntax match jsxEqual +=+ display
 
 " <tag id="sample">
 "         s~~~~~~e

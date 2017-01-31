@@ -96,4 +96,13 @@ const hoge = () => {
   );
 }
 
+    const SearchBar = ({
+      options,
+      selected,
+      handleSearch
+    }) => {
+      const a = 'hi';
+      console.log(a);
+    }
+
 export default Hoge;
