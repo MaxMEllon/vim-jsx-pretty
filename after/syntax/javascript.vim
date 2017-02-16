@@ -21,33 +21,38 @@ if exists('s:current_syntax')
   let b:current_syntax = s:current_syntax
 endif
 
-"  <tag></tag>
-" s~~~~~~~~~~~e
-syntax region jsxRegion
-      \ start=+<\z([^ /!?<>="':]\+\)+
-      \ skip=+<!--\_.\{-}-->+
-      \ end=+</\z1\_\s\{-}[^(=>)]>+
-      \ end=+>\n\?\s*)\@=+
-      \ end=+>\n\?\s*}\@=+
-      \ end=+>;\@=+
-      \ end=+\n\?\s\*,+
-      \ end=+\s*>,\@=+
-      \ end=+\s\+:\@=+
-      \ fold
-      \ contains=jsxCloseString,jsxCloseTag,jsxTag,jsxComment,jsFuncBlock,
-                \@Spell
+" <tag id="sample">
+" s~~~~~~~~~~~~~~~e
+" and self close tag
+" <tag id="sample"   />
+" s~~~~~~~~~~~~~~~~~e
+syntax region jsxTag
+      \ start=+<\([^ /!?<>="':]\+\)\@=+
+      \ skip=+</[^ /!?<>"']\+>+
+      \ end=+/\@<!>+
+      \ end=+\(/>\)\@=+
+      \ contained
+      \ contains=jsxTag,jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
+                \jsxCloseString
       \ keepend
       \ extend
 
-" <tag id="sample">
-" s~~~~~~~~~~~~~~~e
-syntax region jsxTag
-      \ start=+<[^ /!?<>"':]\@=+
-      \ end=+>+
-      \ matchgroup=jsxCloseTag end=+/>+
-      \ contained
-      \ contains=jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
-                \jsxCloseString
+
+" <tag></tag>
+" s~~~~~~~~~e
+" and self close tag
+" <tag/>
+" s~~~~e
+syntax region jsxRegion
+      \ start=+<\z([^ /!?<>="':]\+\)+
+      \ skip=+<!--\_.\{-}-->+
+      \ end=+</\z1>+
+      \ end=+/>+
+      \ fold
+      \ contains=jsxRegion,jsxCloseString,jsxCloseTag,jsxTag,jsxComment,jsFuncBlock,
+                \@Spell
+      \ keepend
+      \ extend
 
 " </tag>
 " ~~~~~~

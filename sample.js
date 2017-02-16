@@ -1,3 +1,22 @@
+class App extends Component {
+  render() {
+    // NOTCE: no `;` after.
+    const arr = <div></div>
+
+    // Codes highlight incorrectly
+    var foo = 'foo';
+    if (foo === 'foo') {
+      console.log('hello');
+    }
+
+    var el = a < 0
+      ? <div></div>
+      : <a></a>
+
+    var b = el || <div>hello, world</div>
+  }
+}
+
 class Hoge extends React.Component {
   constructor(props) {
     super(props);
