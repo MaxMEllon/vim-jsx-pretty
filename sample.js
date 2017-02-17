@@ -3,7 +3,6 @@ class App extends Component {
     // NOTCE: no `;` after.
     const arr = <div></div>
 
-    // Codes highlight incorrectly
     var foo = 'foo';
     if (foo === 'foo') {
       console.log('hello');
@@ -12,8 +11,21 @@ class App extends Component {
     var el = a < 0
       ? <div></div>
       : <a></a>
-
+    var a = (a>b)<a
     var b = el || <div>hello, world</div>
+    var c = a<foo
+    var d = a<foo
+    var e = a>c
+
+    if (a<b && a<d || a>c){
+      return <a></a>
+    }
+
+    if (a < b ) {
+      return b <a ? <div>hello</div>:<a>world</a>
+    }
+
+    return b<a?<div>hello</div>:<a>world</a>
   }
 }
 
@@ -23,7 +35,9 @@ class Hoge extends React.Component {
     this.state = { };
     if (foo <= 300) {
       return <div style={{margin:0}}>
-        Hello world
+        <div>hello, world</div>
+        <table.row hello="world">
+        </table.row>
       </div>
     }
   }
@@ -96,6 +110,7 @@ export const Hoge = () => (
       hoge={aaa}
       hoge={aaa}
     />
+    {foo && <div>foo</div>}
   </div>
 )
 
