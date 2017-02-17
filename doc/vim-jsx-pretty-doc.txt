@@ -1,7 +1,7 @@
 vim-jsx-pretty is syntax highlight for JSX (React.js).
 (https://github.com/MaxMEllon/vim-jsx-pretty)
 
-version 1.0.3
+version 1.0.6
 Author: maxmellon<maxmellon1994@gmail.com>
 License: MIT
 
