@@ -11,6 +11,7 @@ Install                                           |vim-jsx-pretty-install|
 Config                                            |vim-jsx-pretty-config|
 Detail                                            |vim-jsx-pretty-detail|
 License                                           |vim-jsx-pretty-license|
+Thanks                                            |vim-jsx-retty-thanks|
 Inspiration                                       |vim-jsx-pretty-inspiration|
 
 ===============================================================================
@@ -89,7 +90,7 @@ DETAIL                                                  *vim-jsx-pretty-detail*
 ===============================================================================
 LICENSE                                                *vim-jsx-pretty-license*
 
-Copyright (c) 2016 MaxMEllon
+Copyright (c) 2016-2017 MaxMEllon
 MIT License
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

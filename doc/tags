@@ -1,0 +1,11 @@
+g:vim_jsx_pretty_colorful_config	vim-jsx-pretty-doc.txt	/*g:vim_jsx_pretty_colorful_config*
+g:vim_jsx_pretty_enable_jsx_highlight	vim-jsx-pretty-doc.txt	/*g:vim_jsx_pretty_enable_jsx_highlight*
+vim-jsx-pretty	vim-jsx-pretty-doc.txt	/*vim-jsx-pretty*
+vim-jsx-pretty-about	vim-jsx-pretty-doc.txt	/*vim-jsx-pretty-about*
+vim-jsx-pretty-config	vim-jsx-pretty-doc.txt	/*vim-jsx-pretty-config*
+vim-jsx-pretty-detail	vim-jsx-pretty-doc.txt	/*vim-jsx-pretty-detail*
+vim-jsx-pretty-inspiration	vim-jsx-pretty-doc.txt	/*vim-jsx-pretty-inspiration*
+vim-jsx-pretty-install	vim-jsx-pretty-doc.txt	/*vim-jsx-pretty-install*
+vim-jsx-pretty-license	vim-jsx-pretty-doc.txt	/*vim-jsx-pretty-license*
+vim-jsx-pretty-thanks	vim-jsx-pretty-doc.txt	/*vim-jsx-pretty-thanks*
+vim-jsx-pretty-usage	vim-jsx-pretty-doc.txt	/*vim-jsx-pretty-usage*
