@@ -45,7 +45,7 @@ syntax region jsxTag
 " s~~~~e
 " A big start regexp borrowed from https://git.io/vDyxc
 syntax region jsxRegion
-      \ start=+\(\((\|{\|}\|\[\|\]\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\)\_s*\)\@<=<\z([_\$a-zA-Z][\$0-9a-zA-Z]*\)+
+      \ start=+\(\((\|{\|}\|\[\|\]\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\)\_s*\)\@<=<\z([_\$a-zA-Z]\(\.\?[\$0-9a-zA-Z]\+\)*\)+
       \ skip=+<!--\_.\{-}-->+
       \ end=+</\z1>+
       \ end=+/>+

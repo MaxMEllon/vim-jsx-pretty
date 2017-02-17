@@ -36,6 +36,8 @@ class Hoge extends React.Component {
     if (foo <= 300) {
       return <div style={{margin:0}}>
         <div>hello, world</div>
+        <table.row hello="world">
+        </table.row>
       </div>
     }
   }
