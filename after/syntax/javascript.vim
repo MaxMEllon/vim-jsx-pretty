@@ -83,7 +83,7 @@ syntax match jsxTagName
 " <tag key={this.props.key}>
 "      ~~~
 syntax match jsxAttrib
-    \ +[-'"<]\@<!\<[a-zA-Z:_][-.0-9a-zA-Z0-9:_]*\>\(['">]\@!\|$\)+
+    \ +[-'"<]\@<!\<[a-zA-Z:_][-.0-9a-zA-Z0-9:_]*\>\(['"]\@!\|$\)+
     \ contained
     \ contains=jsxAttribPunct,jsxAttribHook
     \ display
