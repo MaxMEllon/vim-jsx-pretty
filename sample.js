@@ -44,7 +44,7 @@ class Hoge extends React.Component {
 
   hoge() {
     Hoge.poge(
-      <div>
+      <div disabled>
         <div></div>
         {this.hoge}
         <div></div>
