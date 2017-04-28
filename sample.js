@@ -34,11 +34,11 @@ class Hoge extends React.Component {
     super(props);
     this.state = { };
     if (foo <= 300) {
-      return <div style={{margin:0}}>
+      return <  div style={{margin:0}}>
         <div>hello, world</div>
         <table.row hello="world">
         </table.row>
-      </div>
+      </ div>
     }
   }
 
@@ -92,7 +92,7 @@ class Hoge extends React.Component {
       <div>
         {(hoge => {
           if (hoge) {
-            return <div />;
+            return <div foo-bar foo/>;
           }
         })()}
       </div>
@@ -103,8 +103,10 @@ class Hoge extends React.Component {
 export const Hoge = () => (
   <div>
     <div
+      hoge
       hoge={aaa}
       hoge={aaa}
+      hoge
     ></div>
     <div
       hoge={aaa}

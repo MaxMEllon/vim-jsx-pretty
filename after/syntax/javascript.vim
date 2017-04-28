@@ -27,7 +27,7 @@ endif
 " <tag id="sample"   />
 " s~~~~~~~~~~~~~~~~~e
 syntax region jsxTag
-      \ start=+<\([^ /!?<>="':]\+\)\@=+
+      \ start=+<\([^/!?<>="':]\+\)\@=+
       \ skip=+</[^ /!?<>"']\+>+
       \ end=+/\@<!>+
       \ end=+\(/>\)\@=+
@@ -45,9 +45,9 @@ syntax region jsxTag
 " s~~~~e
 " A big start regexp borrowed from https://git.io/vDyxc
 syntax region jsxRegion
-      \ start=+\(\((\|{\|}\|\[\|\]\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\)\_s*\)\@<=<\z([_\$a-zA-Z]\(\.\?[\$0-9a-zA-Z]\+\)*\)+
+      \ start=+\(\((\|{\|}\|\[\|\]\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\)\_s*\)\@<=<\_s*\z([_\$a-zA-Z]\(\.\?[\$0-9a-zA-Z]\+\)*\)+
       \ skip=+<!--\_.\{-}-->+
-      \ end=+</\z1>+
+      \ end=+</\_s*\z1>+
       \ end=+/>+
       \ fold
       \ contains=jsxRegion,jsxCloseString,jsxCloseTag,jsxTag,jsxComment,jsFuncBlock,
@@ -58,9 +58,9 @@ syntax region jsxRegion
 " </tag>
 " ~~~~~~
 syntax match jsxCloseTag
-      \ +</[^ /!?<>"']\+>+
+      \ +</\_s*[^/!?<>"']\+>+
       \ contained
-      \ contains=jsxNamespace,jsxAttribPunct
+      \ contains=jsxNamespace
 
 syntax match jsxCloseString
       \ +/>+
@@ -76,19 +76,16 @@ syntax match jsxEntityPunct contained "[&.;]"
 " <tag key={this.props.key}>
 "  ~~~
 syntax match jsxTagName
-    \ +[<]\@<=[^ /!?<>"']\++
+    \ +<\_s*\zs[^/!?<>"']\++
     \ contained
     \ display
 
 " <tag key={this.props.key}>
 "      ~~~
 syntax match jsxAttrib
-    \ +[-'"<]\@<!\<[a-zA-Z:_][-.0-9a-zA-Z0-9:_]*\>\(['"]\@!\|$\)+
+    \ +\(\(<\_s*\)\@<!\_s\)\@<=\<[a-zA-Z_][-0-9a-zA-Z_]*\>\(\_s\+\|\_s*[=/>]\)\@=+
     \ contained
-    \ contains=jsxAttribPunct,jsxAttribHook
     \ display
-
-syntax match jsxAttribPunct +[:.]+ contained display
 
 " <tag id="sample">
 "        ~
