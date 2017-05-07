@@ -16,6 +16,7 @@ class App extends Component {
     var c = a<foo
     var d = a<foo
     var e = a>c
+    var bar = arr[1] < foo;
 
     if (a<b && a<d || a>c){
       return <a></a>
