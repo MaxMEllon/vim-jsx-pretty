@@ -14,6 +14,10 @@ Demo
 
 ![Auto indent demo](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/auto-indent.gif)
 
+- support typescript
+
+![typescript demo](https://user-images.githubusercontent.com/9594376/32855974-beb2432a-ca86-11e7-99a4-85c2630aa5d5.png)
+
 Requirement
 ---
 
@@ -34,6 +38,13 @@ your `~/.vimrc`:
 
     ```vim
     Plug 'pangloss/vim-javascript'
+    Plug 'maxmellon/vim-jsx-pretty'
+    ```
+
+- if you want to highlight tsx files.
+
+    ```vim
+    Plug 'leafgarland/typescript-vim'
     Plug 'maxmellon/vim-jsx-pretty'
     ```
 
