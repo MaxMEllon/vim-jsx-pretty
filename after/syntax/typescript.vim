@@ -78,12 +78,13 @@ syntax match jsxEntityPunct contained "[&.;]"
 syntax match jsxTagName
     \ +<\_s*\zs[^/!?<>"']\++
     \ contained
+    \ nextgroup=jsxAttrib
     \ display
 
 " <tag key={this.props.key}>
 "      ~~~
 syntax match jsxAttrib
-    \ +\(\(<\_s*\)\@<!\_s\)\@<=\<[a-zA-Z_][-0-9a-zA-Z_]*\>\(\_s\+\|\_s*[=/>]\)\@=+
+    \ +\_s\<[a-zA-Z_][-0-9a-zA-Z_]*\>\(\_s\+\|\_s*[=/>]\)\@=+
     \ contained
     \ display
 
