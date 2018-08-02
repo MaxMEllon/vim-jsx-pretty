@@ -113,6 +113,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 THANKS                                                  *vim-jsx-pretty-thanks*
 
   - yuezk
+  - y0za
 
 ===============================================================================
 INSPIREATION                                       *vim-jsx-pretty-inspiration*
