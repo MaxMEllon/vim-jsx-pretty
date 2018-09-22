@@ -1,9 +1,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim ftplugin file
 "
-" Language: typescript.jsx
+" Language: javascript.jsx
 " Maintainer: MaxMEllon <maxmellon1994@gmail.com>
-" Depends: leafgarland/typescript-vim
+" Depends: pangloss/vim-javascript
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
