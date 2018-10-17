@@ -111,6 +111,31 @@ function! GetJsxIndent()
       let ind = ind + s:sw()
     endif
 
+    " return ( | return (
+    "   <>     |   <>
+    "   <div>  |   ##<div>
+    if (getline(v:lnum - 1) =~? '<>')
+      let ind = ind + s:sw()
+    endif
+
+    "       </div> |       <>
+    "   </>        |   ##</>
+    if (getline(v:lnum) =~? '</>')
+      let ind = ind + s:sw()
+    endif
+
+    "   </> |   </>
+    "   )   | )##
+    if (getline(v:lnum - 1) =~? '</>')
+      let ind = ind - s:sw()
+    endif
+
+    " }}>   | }}>
+    " <div> | ##<div>
+    if (getline(v:lnum-1) =~? '^[^<]\+}}>')
+      let ind = ind + s:sw()
+    endif
+
     " <div           | <div
     "   hoge={       |   hoge={
     "   <div></div>  |   ##<div></div>
