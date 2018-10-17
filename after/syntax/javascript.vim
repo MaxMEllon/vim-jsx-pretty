@@ -32,11 +32,12 @@ syntax region jsxTag
       \ end=+/\@<!>+
       \ end=+\(/>\)\@=+
       \ contained
-      \ contains=jsxTag,jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
+      \ contains=jsxTag,jsxFragmentStart,jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
                 \jsxCloseString
       \ keepend
       \ extend
 
+syntax match jsxFragmentStart '<>'
 
 " <tag></tag>
 " s~~~~~~~~~e
@@ -44,16 +45,31 @@ syntax region jsxTag
 " <tag/>
 " s~~~~e
 " A big start regexp borrowed from https://git.io/vDyxc
-syntax region jsxRegion
+syntax region jsxRegionNonFragment
       \ start=+\(\((\|{\|}\|\[\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\)\_s*\)\@<=<\_s*\z([_\$a-zA-Z]\(\.\?[\$0-9a-zA-Z]\+\)*\)+
       \ skip=+<!--\_.\{-}-->+
       \ end=+</\_s*\z1>+
       \ end=+/>+
       \ fold
-      \ contains=jsxRegion,jsxCloseString,jsxCloseTag,jsxTag,jsxComment,jsFuncBlock,
+      \ contains=jsxRegion,jsxFragment,jsxCloseString,jsxCloseTag,jsxTag,jsxFragmentStart,jsxComment,jsFuncBlock,
                 \@Spell
       \ keepend
       \ extend
+
+" <></>
+" s~~~e
+syntax region jsxFragment
+      \ start=+<>+
+      \ skip=+<!--\_.\{-}-->+
+      \ end=+</>+
+      \ fold
+      \ contains=jsxRegion,jsxFragment,jsxCloseString,jsxCloseTag,jsxTag,jsxFragmentStart,jsxComment,jsFuncBlock,
+                \@Spell
+      \ keepend
+      \ extend
+
+" Regular tags and fragments
+syntax cluster jsxRegion add=jsxRegionNonFragment add=jsxFragment
 
 " </tag>
 " ~~~~~~
@@ -63,7 +79,7 @@ syntax match jsxCloseTag
       \ contains=jsxNamespace
 
 syntax match jsxCloseString
-      \ +/>+
+      \ +<\?/>+
       \ contained
 
 " <!-- -->
@@ -104,7 +120,7 @@ syntax region jsxString contained start=+'+ end=+'+ contains=jsxEntity,@Spell di
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
     \ contained
-    \ contains=jsBlock,jsxRegion
+    \ contains=jsBlock,jsxRegion,jsxFragment
     \ start=+{+
     \ end=++
     \ extend
@@ -112,13 +128,14 @@ syntax region jsxEscapeJs
 syntax match jsxIfOperator +?+
 syntax match jsxElseOperator +:+
 
-syntax cluster jsExpression add=jsxRegion
-syntax cluster javascriptNoReserved add=jsxRegion
+syntax cluster jsExpression add=jsxRegion add=jsxFragment
+syntax cluster javascriptNoReserved add=jsxRegion add=jsxFragment
 
 let s:vim_jsx_pretty_enable_jsx_highlight = get(g:, 'vim_jsx_pretty_enable_jsx_highlight', 1)
 
 if s:vim_jsx_pretty_enable_jsx_highlight == 1
   highlight def link jsxTag Function
+  highlight def link jsxFragmentStart Function
   highlight def link jsxTagName Function
   highlight def link jsxString String
   highlight def link jsxNameSpace Function
@@ -142,4 +159,3 @@ let b:current_syntax = 'javascript.jsx'
 
 let &cpo = s:jsx_cpo
 unlet s:jsx_cpo
-
