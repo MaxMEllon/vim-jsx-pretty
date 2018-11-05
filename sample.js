@@ -105,8 +105,8 @@ export const Hoge = () => (
   <div>
     <div
       hoge
-      hoge={aaa}
-      hoge={aaa}
+      hoge={aaa} // inline comment
+      hoge={aaa} /* multiline comment */
       hoge
     ></div>
     <div
