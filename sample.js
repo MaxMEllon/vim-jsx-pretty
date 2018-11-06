@@ -142,4 +142,12 @@ const SearchBar = ({
   console.log(a);
 }
 
+function tagFollowsPlainText() {
+  return (
+    <div>
+      plain text<br />
+    </div>
+  );
+}
+
 export default Hoge;
