@@ -32,7 +32,7 @@ syntax region jsxTag
       \ end=+/\@<!>+
       \ end=+\(/>\)\@=+
       \ contained
-      \ contains=jsxTag,jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
+      \ contains=jsxTag,jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,jsComment,
                 \jsxCloseString
       \ keepend
       \ extend

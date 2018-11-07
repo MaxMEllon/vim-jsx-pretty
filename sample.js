@@ -105,8 +105,8 @@ export const Hoge = () => (
   <div>
     <div
       hoge
-      hoge={aaa}
-      hoge={aaa}
+      hoge={aaa} // inline comment
+      hoge={aaa} /* multiline comment */
       hoge
     ></div>
     <div
@@ -141,6 +141,13 @@ const SearchBar = ({
   const a = 'hi';
   console.log(a);
 }
+
+const fragment = (
+  <>
+    <em>hello</em>
+    <span>fragment</span>
+  </>
+);
 
 function tagFollowsPlainText() {
   return (
