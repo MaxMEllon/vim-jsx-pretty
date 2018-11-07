@@ -152,7 +152,7 @@ function! GetJsxIndent()
     "   <div>  |   <div>
     "   </div> |   </div>
     " ##);     | ); <--
-    if getline(v:lnum) =~? ');\?' && s:syn_jsx_close_tag(prevsyn)
+    if getline(v:lnum) =~? '^\_s*);\?' && s:syn_jsx_close_tag(prevsyn)
       let ind = ind - s:sw()
     endif
 
