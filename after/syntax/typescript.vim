@@ -37,6 +37,10 @@ syntax region jsxTag
       \ keepend
       \ extend
 
+" match fragment start tag <>
+syntax match jsxTag
+      \ +<\_s*>+
+      \ contained
 
 " <tag></tag>
 " s~~~~~~~~~e
@@ -45,10 +49,10 @@ syntax region jsxTag
 " s~~~~e
 " A big start regexp borrowed from https://git.io/vDyxc
 syntax region jsxRegion
-      \ start=+\(\((\|{\|}\|\[\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\)\_s*\)\@<=<\_s*\z([_\$a-zA-Z]\(\.\?[\$0-9a-zA-Z]\+\)*\)+
+      \ start=+\(\((\|{\|}\|\[\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\|<[^/]*>\_s*.\+\)\_s*\)\@<=<\_s*\(>\|\z([_\$a-zA-Z]\(\.\?[\$0-9a-zA-Z]\+\)*\)\)+
       \ skip=+<!--\_.\{-}-->+
       \ end=+</\_s*\z1>+
-      \ end=+/>+
+      \ end=+/\_s*>+
       \ fold
       \ contains=jsxRegion,jsxCloseString,jsxCloseTag,jsxTag,jsxComment,jsFuncBlock,
                 \@Spell
@@ -58,12 +62,17 @@ syntax region jsxRegion
 " </tag>
 " ~~~~~~
 syntax match jsxCloseTag
-      \ +</\_s*[^/!?<>"']\+>+
+      \ +<\_s*/\_s*[^/!?<>"']\+>+
       \ contained
       \ contains=jsxNamespace
 
+" match fragment close tag </>
+syntax match jsxCloseTag
+     \ +<\_s*/\_s*>+
+     \ contained
+
 syntax match jsxCloseString
-      \ +/>+
+      \ +/\_s*>+
       \ contained
 
 " <!-- -->
