@@ -103,6 +103,21 @@ function! GetJsxIndent()
         \ s:syn_jsx_continues(cursyn, prevsyn)
     let ind = XmlIndentGet(v:lnum, 0)
 
+    " indent fragment content
+    " <>    |  <>
+    " hello |  ##hello
+    " </>   |  </>
+    if getline(v:lnum - 1) =~ '<\s*>\_s*$'
+      let ind = indent(v:lnum - 1) + s:sw()
+    endif
+
+    " indent close fragment tag
+    "   <>  | <>
+    " <>##  | <>
+    if getline(v:lnum) =~ '^\s*<\s*/\s*>'
+      let ind = indent(v:lnum - 1)
+    endif
+
     if getline(v:lnum) =~? s:endtag
       let ind = ind - s:sw()
     endif

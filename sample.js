@@ -142,4 +142,11 @@ const SearchBar = ({
   console.log(a);
 }
 
+const fragment = (
+  <>
+    <em>hello</em>
+    <span>fragment</span>
+  </>
+);
+
 export default Hoge;
