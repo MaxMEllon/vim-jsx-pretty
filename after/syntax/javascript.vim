@@ -49,7 +49,7 @@ syntax match jsxTag
 " s~~~~e
 " A big start regexp borrowed from https://git.io/vDyxc
 syntax region jsxRegion
-      \ start=+\(\((\|{\|}\|\[\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\)\_s*\)\@<=<\_s*\(>\|\z([_\$a-zA-Z]\(\.\?[\$0-9a-zA-Z]\+\)*\)\)+
+      \ start=+\(\((\|{\|}\|\[\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\|<[^/]*>\_s*.\+\)\_s*\)\@<=<\_s*\(>\|\z([_\$a-zA-Z]\(\.\?[\$0-9a-zA-Z]\+\)*\)\)+
       \ skip=+<!--\_.\{-}-->+
       \ end=+</\_s*\z1>+
       \ end=+/\_s*>+

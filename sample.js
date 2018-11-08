@@ -149,4 +149,12 @@ const fragment = (
   </>
 );
 
+function tagFollowsPlainText() {
+  return (
+    <div>
+      plain text<br />
+    </div>
+  );
+}
+
 export default Hoge;
