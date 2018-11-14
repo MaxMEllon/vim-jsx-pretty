@@ -25,7 +25,7 @@ endif
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
       \ contained
-      \ contains=jsBlock,jsxRegion
+      \ contains=jsBlock
       \ start=+{+
       \ end=++
       \ extend

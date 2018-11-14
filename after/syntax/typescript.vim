@@ -34,7 +34,7 @@ syntax region typescriptFuncBlock
 "          s~~~~~~~~~~~~~~e
 syntax region jsxEscapeJs
       \ contained
-      \ contains=typescriptFuncBlock,jsxRegion
+      \ contains=typescriptFuncBlock
       \ start=+{+
       \ end=++
       \ extend
