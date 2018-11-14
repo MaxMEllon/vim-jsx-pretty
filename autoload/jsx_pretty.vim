@@ -46,8 +46,17 @@ function! jsx_pretty#common()
   syntax match jsxEntity "&[^; \t]*;" contains=jsxEntityPunct
   syntax match jsxEntityPunct contained "[&.;]"
 
+  " <MyComponent ...>
+  "  ~~~~~~~~~~~
+  " NOT
+  "  <someCamel ...>
+  "       ~~~~~
   syntax match jsxComponentName
-        \ +[A-Z][a-zA-Z0-9]\++
+        \ +<[A-Z][a-zA-Z0-9]\++hs=s+1
+        \ contained
+        \ display
+  syntax match jsxComponentName
+        \ +</[A-Z][a-zA-Z0-9]\++hs=s+2
         \ contained
         \ display
 
@@ -60,6 +69,8 @@ function! jsx_pretty#common()
         \ nextgroup=jsxAttrib
         \ display
 
+  " </tag>
+  "   ~~~
   syntax match jsxTagName
         \ +</\s*[-a-zA-Z0-9]\++hs=s+2
         \ contained

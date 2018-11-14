@@ -159,6 +159,8 @@ function tagFollowsPlainText() {
 
 class Test extends React.Component {
   render() {
+    // shouldn't get a jsxComponentName on just Line here
+    let x = <flatLine />
     return (
       <FlatList
         data={[{ key: "test", icon: <Icon style={APPICON} icon="test" /> }]}
