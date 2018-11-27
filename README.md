@@ -99,10 +99,11 @@ let g:vim_jsx_pretty_colorful_config = 1 " default 0
 |---|---|
 |jsxTag| `<tag id="sample">`<br />`~~~~~~~~~~~~~~~~~`|
 |jsxTagName| `<tag id="sample">`<br />`_~~~_____________`|
-|jsxjsxAttrib| `<tag id="sample">`<br />`_____~~__________`|
+|jsxAttrib| `<tag id="sample">`<br />`_____~~__________`|
 |jsxEqual| `<tag id="sample">`<br />`_______~_________`|
 |jsxString| `<tag id="sample">`<br />`________~~~~~~~~_`|
 |jsxCloseTag| `</tag> ｜ <tag />`<br />`~~~~~~ ｜  _____~~` |
+|jsxComponentName| `<Capitals>`<br />`_~~~~~~~~_` |
 
 Inspiration
 ---
