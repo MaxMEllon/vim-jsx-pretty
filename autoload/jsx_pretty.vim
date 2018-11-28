@@ -12,7 +12,7 @@ function! jsx_pretty#common()
         \ end=+/\@<!>+
         \ end=+\(/>\)\@=+
         \ contained
-        \ contains=jsxTag,jsxError,jsxTagName,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
+        \ contains=jsxTag,jsxError,jsxOpenTag,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
                   \jsxCloseString,jsComment,typescriptLineComment,typescriptComment,
         \ keepend
         \ extend
@@ -45,6 +45,7 @@ function! jsx_pretty#common()
 
   syntax match jsxEntity "&[^; \t]*;" contains=jsxEntityPunct
   syntax match jsxEntityPunct contained "[&.;]"
+  syntax match jsxDot +\.+ contained display
 
   " <MyComponent ...>
   "  ~~~~~~~~~~~
@@ -52,32 +53,27 @@ function! jsx_pretty#common()
   "  <someCamel ...>
   "       ~~~~~
   syntax match jsxComponentName
-        \ +<[A-Z][a-zA-Z0-9]\++hs=s+1
-        \ contained
-        \ display
-  syntax match jsxComponentName
-        \ +</[A-Z][a-zA-Z0-9]\++hs=s+2
+        \ +\<[A-Z][a-zA-Z0-9\$]\+\>+
         \ contained
         \ display
 
   " <tag key={this.props.key}>
   "  ~~~
   syntax match jsxTagName
-        \ +<\s*[-a-zA-Z0-9]\++hs=s+1
+        \ +[-a-zA-Z0-9_\.\$]\++
         \ contained
-        \ contains=jsxComponentName
-        \ nextgroup=jsxAttrib
+        \ contains=jsxComponentName,jsxDot
         \ display
 
-  " </tag>
-  "   ~~~
-  syntax match jsxTagName
-        \ +</\s*[-a-zA-Z0-9]\++hs=s+2
+  " <tag key={this.props.key}>
+  " ~~~~
+  syntax match jsxOpenTag
+        \ +\(<\_s*\)\@<=[-a-zA-Z0-9_\.\$]\++
         \ contained
-        \ contains=jsxComponentName
+        \ contains=jsxTagName
         \ nextgroup=jsxAttrib
         \ display
-
+    
   " </tag>
   " ~~~~~~
   syntax match jsxCloseTag
@@ -103,7 +99,7 @@ function! jsx_pretty#common()
 
   " <tag id="sample">
   "        ~
-  syntax match jsxEqual +=+ display
+  syntax match jsxEqual +=+ contained display
 
   " <tag id="sample">
   "         s~~~~~~e
@@ -119,15 +115,17 @@ function! jsx_pretty#common()
   let s:vim_jsx_pretty_enable_jsx_highlight = get(g:, 'vim_jsx_pretty_enable_jsx_highlight', 1)
 
   if s:vim_jsx_pretty_enable_jsx_highlight == 1
-    highlight def link jsxTag Function
-    highlight def link jsxTagName Function
-    highlight def link jsxComponentName Identifier
+    highlight def link jsxTag Comment
+    highlight def link jsxCloseTag jsxTag
+    highlight def link jsxCloseString jsxCloseTag
+    highlight def link jsxTagName Identifier
+    highlight def link jsxComponentName Function
+    highlight def link jsxAttrib Type
+    highlight def link jsxEqual Operator
+    highlight def link jsxDot Operator
     highlight def link jsxString String
     highlight def link jsxComment Error
-    highlight def link jsxAttrib Type
     highlight def link jsxEscapeJs jsxEscapeJs
-    highlight def link jsxCloseTag Identifier
-    highlight def link jsxCloseString jsxCloseTag
   endif
 
   let s:vim_jsx_pretty_colorful_config = get(g:, 'vim_jsx_pretty_colorful_config', 0)

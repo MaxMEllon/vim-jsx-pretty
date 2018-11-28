@@ -84,19 +84,21 @@ class Hoge extends React.Component {
 
   render() {
     return (
-      <div className="aaa, aaaa">
-        <div className="aaa, aaaa, aaaaaa">
+      <>
+        <div className="aaa, aaaa">
+          <div className="aaa, aaaa, aaaaaa">
 
+          </div>
         </div>
-      </div>
 
-      <div>
-        {(hoge => {
-          if (hoge) {
-            return <div foo-bar foo/>;
-          }
-        })()}
-      </div>
+        <div>
+          {(hoge => {
+            if (hoge) {
+              return <div foo-bar foo/>;
+            }
+          })()}
+        </div>
+      </>
     );
   }
 }
@@ -123,13 +125,13 @@ ReactDOM.render(
     <div></div>
     <div></div>
   </div>,
-  document.getElementById('body');
+  document.getElementById('body')
 )
 
 const hoge = () => {
   ReactDOM.render(
     <div></div>,
-    document.getElementById('body');
+    document.getElementById('body')
   );
 }
 
@@ -168,7 +170,9 @@ class Test extends React.Component {
         horizontal={false}
         renderItem={({ item }) => (
           <View>
-            {item.icon}
+            <View.Icon>
+              {item.icon}
+            </View.Icon>
           </View>
         )}
       />

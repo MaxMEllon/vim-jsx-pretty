@@ -104,6 +104,7 @@ let g:vim_jsx_pretty_colorful_config = 1 " default 0
 |jsxString| `<tag id="sample">`<br />`________~~~~~~~~_`|
 |jsxCloseTag| `</tag> ｜ <tag />`<br />`~~~~~~ ｜  _____~~` |
 |jsxComponentName| `<Capitals>`<br />`_~~~~~~~~_` |
+|jsxDot| `<Parent.Child>`<br />`_______~______` |
 
 Inspiration
 ---
