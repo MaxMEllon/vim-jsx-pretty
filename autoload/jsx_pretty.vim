@@ -12,7 +12,7 @@ function! jsx_pretty#common()
         \ end=+/\@<!>+
         \ end=+\(/>\)\@=+
         \ contained
-        \ contains=jsxTag,jsxError,jsxStartTag,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
+        \ contains=jsxTag,jsxError,jsxOpenTag,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
                   \jsxCloseString,jsComment,typescriptLineComment,typescriptComment,
         \ keepend
         \ extend
@@ -67,7 +67,7 @@ function! jsx_pretty#common()
 
   " <tag key={this.props.key}>
   " ~~~~
-  syntax match jsxStartTag
+  syntax match jsxOpenTag
         \ +\(<\_s*\)\@<=[-a-zA-Z0-9_\.\$]\++
         \ contained
         \ contains=jsxTagName
