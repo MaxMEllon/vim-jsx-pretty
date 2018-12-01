@@ -21,33 +21,26 @@ if exists('s:current_syntax')
   let b:current_syntax = s:current_syntax
 endif
 
-" this is commented out in leafgarland/typescript-vim
-syntax region typescriptFuncBlock
+" refine the typescript line comment
+syntax region typescriptLineComment start=+//+ end=/$/ contains=@Spell,typescriptCommentTodo,typescriptRef extend keepend
+
+" add a typescriptBlock group for typescript
+syntax region typescriptBlock
       \ contained
-      \ matchgroup=typescriptFuncBlock
+      \ matchgroup=typescriptFuncBlockBraces
       \ start="{"
       \ end="}"
-      \ contains=@typescriptAll,typescriptParensErrA,typescriptParensErrB,typescriptParen,typescriptBracket,typescriptBlock,jsxRegion
-      \ fold
-
-" <tag key={this.props.key}>
-"          s~~~~~~~~~~~~~~e
-syntax region jsxEscapeJs
-      \ contained
-      \ contains=typescriptFuncBlock
-      \ start=+{+
-      \ end=++
       \ extend
+      \ contains=@typescriptAll,@typescriptExpression,typescriptBlock
+      \ fold
 
 " because this is autoloaded, when developing you're going to need to source
 " the autoload/jsx_pretty.vim file manually, or restart vim
 call jsx_pretty#common()
 
-syntax cluster typescriptParens add=jsxRegion
-
+syntax cluster typescriptExpression add=jsxRegion
 
 let b:current_syntax = 'typescript.tsx'
 
 let &cpo = s:jsx_cpo
 unlet s:jsx_cpo
-

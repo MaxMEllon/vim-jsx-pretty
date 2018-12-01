@@ -18,6 +18,11 @@ class App extends Component {
     var e = a>c
     var bar = arr[1] < foo;
 
+    if (foo
+      < arr) {
+
+    }
+
     if (a<b && a<d || a>c){
       return <a></a>
     }
@@ -45,7 +50,7 @@ class Hoge extends React.Component {
 
   hoge() {
     Hoge.poge(
-      <div disabled>
+      <div disabled >
         <div></div>
         {this.hoge}
         <div></div>
@@ -57,7 +62,7 @@ class Hoge extends React.Component {
     return (
       <div
         foo={
-          <bar foo='aaa' >
+          <bar foo = 'aaa' >
             <div
               hoge={
                 <div
@@ -101,6 +106,16 @@ class Hoge extends React.Component {
       </>
     );
   }
+}
+
+function test2() {
+	return (
+          <div
+            foo="bar"
+          >
+            <div>child</div>
+          </div>
+	);
 }
 
 export const Hoge = () => (

@@ -1,131 +1,150 @@
-" expects a region 'jsxEscapeJs' to be defined with start=+{+ and js or ts-specifics inside
 function! jsx_pretty#common()
 
   " <tag id="sample">
-  " s~~~~~~~~~~~~~~~e
+  " ~~~~~~~~~~~~~~~~~
   " and self close tag
   " <tag id="sample"   />
-  " s~~~~~~~~~~~~~~~~~e
+  " ~~~~~~~~~~~~~~~~~~~
   syntax region jsxTag
-        \ start=+<\([^/!?<>="':]\+\)\@=+
-        \ skip=+</[^ /!?<>"']\+>+
-        \ end=+/\@<!>+
-        \ end=+\(/>\)\@=+
+        \ start=+<+
+        \ matchgroup=jsxPunct
+        \ end=+>+
+        \ matchgroup=NONE
+        \ end=+\(/\_s*>\)\@=+
         \ contained
-        \ contains=jsxTag,jsxError,jsxOpenTag,jsxAttrib,jsxEqual,jsxString,jsxEscapeJs,
-                  \jsxCloseString,jsComment,typescriptLineComment,typescriptComment,
+        \ contains=jsxOpenTag,jsxEscapeJs,jsxAttrib,jsComment,@javascriptComments,javaScriptLineComment,javaScriptComment,typescriptLineComment,typescriptComment
         \ keepend
         \ extend
-
-  " match fragment start tag <>
-  syntax match jsxTag
-        \ +<\_s*>+
-        \ contained
 
   " <tag></tag>
-  " s~~~~~~~~~e
+  " ~~~~~~~~~~~
+  " and fragment
+  " <></>
+  " ~~~~~
   " and self close tag
-  " <tag/>
-  " s~~~~e
-  " A big start regexp borrowed from https://git.io/vDyxc
-  syntax region jsxRegion
-        \ start=+\(\((\|{\|}\|\[\|,\|&&\|||\|?\|:\|=\|=>\|\Wreturn\|^return\|\Wdefault\|^\|>\|<[^/]*>\_s*.\+\)\_s*\)\@<=<\_s*\(>\|\z([_\$a-zA-Z]\(\.\?[\$0-9a-zA-Z]\+\)*\)\)+
-        \ skip=+<!--\_.\{-}-->+
-        \ end=+</\_s*\z1>+
+  " <tag />
+  " ~~~~~~~
+  syntax region jsxElement
+        \ start=+<\_s*\(>\|\z(\<[-:_\.\$0-9A-Za-z]\+\>\)\)+
         \ end=+/\_s*>+
-        \ fold
-        \ contains=jsxRegion,jsxCloseString,jsxCloseTag,jsxTag,jsxComment,jsxEscapeJs,
-                  \@Spell
+        \ end=+<\_s*/\_s*\z1\_s*>+
+        \ contains=jsxElement,jsxEscapeJs,jsxTag,jsxCloseString,jsxCloseTag,@Spell
         \ keepend
         \ extend
+        \ contained
+        \ fold
 
-  " <!-- -->
-  " ~~~~~~~~
-  syntax match jsxComment /<!--\_.\{-}-->/ display
+  " detect jsx region
+  syntax region jsxRegion
+        \ start=+\(\(\_[([,?:=+\-*/<>{}]\|&&\|||\|=>\|\<return\|\<default\|\<await\|\<yield\)\_s*\)\@<=<\_s*\(>\|\z(\<[_\$A-Za-z][-:_\.\$0-9A-Za-z]*\>\)\(\_s*\([-+*)\]}&|?]\|/\(\_s*>\)\@!\)\)\@!\)+
+        \ end=++
+        \ contains=jsxElement
 
-  syntax match jsxEntity "&[^; \t]*;" contains=jsxEntityPunct
-  syntax match jsxEntityPunct contained "[&.;]"
+  " <tag key={this.props.key}>
+  "          ~~~~~~~~~~~~~~~~
+  syntax region jsxEscapeJs
+        \ start=+{+
+        \ end=++
+        \ extend
+        \ contained
+        \ contains=jsBlock,javascriptBlock,javaScriptBlockBuildIn,typescriptBlock
+
+  " <tag key={this.props.key}>
+  " ~~~~
+  " and fragment start tag
+  " <>
+  " ~~
+  syntax region jsxOpenTag
+        \ matchgroup=jsxPunct
+        \ start=+<+
+        \ end='>'
+        \ matchgroup=NONE
+        \ end=+\>+
+        \ contained
+        \ contains=jsxTagName
+        \ nextgroup=jsxAttrib
+        \ skipwhite
+        \ skipempty
+
+  " <foo.bar>
+  "     ~
   syntax match jsxDot +\.+ contained display
+
+  " <foo:bar>
+  "     ~
+  syntax match jsxNamespace +:+ contained display
+
+  " <tag id="sample">
+  "        ~
+  syntax match jsxEqual +=+ contained display nextgroup=jsxString,jsxEscapeJs,jsxRegion skipwhite
+
+  " <tag />
+  "      ~~
+  syntax match jsxCloseString +/\_s*>+ contained 
+
+  " </tag>
+  " ~~~~~~
+  " and fragment close tag
+  " </>
+  " ~~~
+  syntax region jsxCloseTag
+        \ matchgroup=jsxPunct
+        \ start=+<\_s*/+
+        \ end=+>+
+        \ contained
+        \ contains=jsxTagName
+
+  " <tag key={this.props.key}>
+  "      ~~~
+  syntax match jsxAttrib
+        \ +\<[-A-Za-z_][-:_\.\$0-9A-Za-z]*\>+
+        \ contained
+        \ nextgroup=jsxEqual
+        \ skipwhite
+        \ skipempty
+        \ display
 
   " <MyComponent ...>
   "  ~~~~~~~~~~~
   " NOT
-  "  <someCamel ...>
-  "       ~~~~~
+  " <someCamel ...>
+  "      ~~~~~
   syntax match jsxComponentName
-        \ +\<[A-Z][a-zA-Z0-9\$]\+\>+
+        \ +\<[A-Z][\$0-9A-Za-z]\+\>+
         \ contained
         \ display
 
   " <tag key={this.props.key}>
   "  ~~~
   syntax match jsxTagName
-        \ +[-a-zA-Z0-9_\.\$]\++
+        \ +\<[-:_\.\$0-9A-Za-z]\+\>+
         \ contained
-        \ contains=jsxComponentName,jsxDot
-        \ display
-
-  " <tag key={this.props.key}>
-  " ~~~~
-  syntax match jsxOpenTag
-        \ +\(<\_s*\)\@<=[-a-zA-Z0-9_\.\$]\++
-        \ contained
-        \ contains=jsxTagName
+        \ contains=jsxComponentName,jsxDot,jsxNamespace
         \ nextgroup=jsxAttrib
-        \ display
-    
-  " </tag>
-  " ~~~~~~
-  syntax match jsxCloseTag
-        \ +<\_s*/\_s*[^/!?<>"']\+>+
-        \ contained
-        \ contains=jsxTagName
-
-  " match fragment close tag </>
-  syntax match jsxCloseTag
-        \ +<\_s*/\_s*>+
-        \ contained
-
-  syntax match jsxCloseString
-        \ +/\_s*>+
-        \ contained
-
-  " <tag key={this.props.key}>
-  "      ~~~
-  syntax match jsxAttrib
-        \ +\_s\<[a-zA-Z_][-0-9a-zA-Z_]*\>\(\_s\+\|\_s*[=/>]\)\@=+
-        \ contained
+        \ skipempty
+        \ skipwhite
         \ display
 
   " <tag id="sample">
-  "        ~
-  syntax match jsxEqual +=+ contained display
-
-  " <tag id="sample">
-  "         s~~~~~~e
-  syntax region jsxString contained start=+"+ end=+"+ contains=jsxEntity,@Spell display
-
+  "         ~~~~~~~~
+  " and 
   " <tag id='sample'>
-  "         s~~~~~~e
-  syntax region jsxString contained start=+'+ end=+'+ contains=jsxEntity,@Spell display
-
-  syntax match jsxIfOperator +?+
-  syntax match jsxElseOperator +:+
+  "         ~~~~~~~~
+  syntax region jsxString start=+\z(["']\)+  skip=+\\\%(\z1\|$\)+  end=+\z1+ contained contains=@Spell display
 
   let s:vim_jsx_pretty_enable_jsx_highlight = get(g:, 'vim_jsx_pretty_enable_jsx_highlight', 1)
 
   if s:vim_jsx_pretty_enable_jsx_highlight == 1
-    highlight def link jsxTag Comment
-    highlight def link jsxCloseTag jsxTag
-    highlight def link jsxCloseString jsxCloseTag
+    highlight def link jsxTag Function
     highlight def link jsxTagName Identifier
     highlight def link jsxComponentName Function
     highlight def link jsxAttrib Type
     highlight def link jsxEqual Operator
-    highlight def link jsxDot Operator
     highlight def link jsxString String
-    highlight def link jsxComment Error
-    highlight def link jsxEscapeJs jsxEscapeJs
+    highlight def link jsxDot Operator
+    highlight def link jsxNamespace Operator
+    highlight def link jsxPunct Comment
+    highlight def link jsxCloseString jsxPunct
   endif
 
   let s:vim_jsx_pretty_colorful_config = get(g:, 'vim_jsx_pretty_colorful_config', 0)
