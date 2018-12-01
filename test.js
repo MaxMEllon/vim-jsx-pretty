@@ -123,6 +123,7 @@ function testComment() {
   return <div>
     <div
       hoge
+      foo:bar="hello"
       hoge="string"
       hoge={foo > 0 ? 'foo' : 'bar'} // inline comment
       hoge={aaa} /* multiline comment */

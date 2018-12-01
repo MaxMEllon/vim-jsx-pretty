@@ -97,7 +97,7 @@ function! jsx_pretty#common()
   " <tag key={this.props.key}>
   "      ~~~
   syntax match jsxAttrib
-        \ +\<[-A-Za-z_][-:_\.\$0-9A-Za-z]*\>+
+        \ +\<[-A-Za-z_][-:_\$0-9A-Za-z]*\>+
         \ contained
         \ nextgroup=jsxEqual
         \ skipwhite
