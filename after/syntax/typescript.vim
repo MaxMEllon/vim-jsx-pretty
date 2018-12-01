@@ -27,7 +27,7 @@ syntax region typescriptLineComment start=+//+ end=/$/ contains=@Spell,typescrip
 " add a typescriptBlock group for typescript
 syntax region typescriptBlock
       \ contained
-      \ matchgroup=typescriptFuncBlockBraces
+      \ matchgroup=typescriptBraces
       \ start="{"
       \ end="}"
       \ extend
