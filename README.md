@@ -102,9 +102,12 @@ let g:vim_jsx_pretty_colorful_config = 1 " default 0
 |jsxAttrib| `<tag id="sample">`<br />`_____~~__________`|
 |jsxEqual| `<tag id="sample">`<br />`_______~_________`|
 |jsxString| `<tag id="sample">`<br />`________~~~~~~~~_`|
-|jsxCloseTag| `</tag> ｜ <tag />`<br />`~~~~~~ ｜  _____~~` |
+|jsxCloseTag| `</tag>`<br />`~~~~~~` |
+|jsxCloseString| `<tag />`<br />`_____~~` |
 |jsxComponentName| `<Capitals>`<br />`_~~~~~~~~_` |
 |jsxDot| `<Parent.Child>`<br />`_______~______` |
+|jsxNamespace| `<foo:bar>`<br />`____~____` |
+|jsxPunct| `<tag></tag>`<br />`~___~~~___~` |
 
 Inspiration
 ---
