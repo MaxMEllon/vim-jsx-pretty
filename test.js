@@ -91,7 +91,7 @@ function test() {
 function test2() {
   return (
     <>
-      < div foo="foo, bar">
+      <div foo="foo, bar">
         <div className="aaa, aaaa, aaaaaa">text</div>
         <div>{[1, 2].map(x => <span>{ x / 2 }</span>)}</div>
       </div>
@@ -130,6 +130,7 @@ function testComment() {
       hoge=<div>valid</div> // according to the jsx spec, this is equal to {<div></div>}
       hoge=<br /> // this is equal to {<br />}
       {...this.props}
+      {...this.props}
     >
       {...testComment()}
     </div>
@@ -147,21 +148,21 @@ function testComment() {
 function testComponentName() {
   // shouldn't get a jsxComponentName on just Line here
   let x = <flatLine />
-    return (
-      <FlatList
-        style={{display: 'none', fontSize: 100}}
-        data={[{ key: "test", icon: <Icon style={APPICON} icon="test" /> }]}
-        numColumns={4}
-        horizontal={false}
-        renderItem={({ item }) => (
-          <View>
-            <View.Icon>
-              {item.icon}
-            </View.Icon>
-          </View>
-        )}
-      />
-    )
+  return (
+    <FlatList
+      style={{display: 'none', fontSize: 100}}
+      data={[{ key: "test", icon: <Icon style={APPICON} icon="test" /> }]}
+      numColumns={4}
+      horizontal={false}
+      renderItem={({ item }) => (
+        <View>
+          <View.Icon>
+            {item.icon}
+          </View.Icon>
+        </View>
+      )}
+    />
+  )
 }
 
 export default <div>after default</div>;

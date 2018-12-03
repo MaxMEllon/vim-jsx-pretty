@@ -24,7 +24,8 @@ class App extends Component {
     }
 
     if (a<b && a<d || a>c){
-      return <a></a>
+      return <a>
+      </a>
     }
 
     if (a < b ) {
@@ -43,6 +44,8 @@ class Hoge extends React.Component {
       return <  div style={{margin:0}}>
         <div>hello, world</div>
         <table.row hello="world">
+          plain text
+          <div></div>
         </table.row>
       </ div>
     }
@@ -52,8 +55,20 @@ class Hoge extends React.Component {
     Hoge.poge(
       <div disabled >
         <div></div>
+        <div></div>
         {this.hoge}
         <div></div>
+        {
+          <div></div>
+        }
+        {
+          a > 0
+            ? (
+              <div></div>
+            )
+            : <div>
+            </div>
+        }
       </div>
     );
   }
@@ -62,12 +77,21 @@ class Hoge extends React.Component {
     return (
       <div
         foo={
-          <bar foo = 'aaa' >
-            <div
+          <bar foo = 'aaa'
+          >
+            <foo
+              attr={"test"} />
+            <bar
+              hoge={
+                <div
+                  hoge={'aaa'}>
+                </div>
+              }
               hoge={
                 <div
                   hoge={'aaa'}
-                ></div>
+                >
+                </div>
               }
             />
           </bar>
@@ -92,14 +116,18 @@ class Hoge extends React.Component {
       <>
         <div className="aaa, aaaa">
           <div className="aaa, aaaa, aaaaaa">
-
+            <>
+              <div></div>
+            </>
           </div>
         </div>
 
         <div>
           {(hoge => {
             if (hoge) {
-              return <div foo-bar foo/>;
+              var a = <div foo>
+              </div>
+              return <div foo-bar foo />;
             }
           })()}
         </div>
@@ -109,13 +137,13 @@ class Hoge extends React.Component {
 }
 
 function test2() {
-	return (
-          <div
-            foo="bar"
-          >
-            <div>child</div>
-          </div>
-	);
+  return (
+    <div
+      foo="bar"
+    >
+      <div>child</div>
+    </div>
+  );
 }
 
 export const Hoge = () => (
@@ -125,7 +153,9 @@ export const Hoge = () => (
       hoge={aaa} // inline comment
       hoge={aaa} /* multiline comment */
       hoge
-    ></div>
+    >
+      {<div></div>}
+    </div>
     <div
       hoge={aaa}
       hoge={aaa}
