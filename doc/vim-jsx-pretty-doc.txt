@@ -114,6 +114,7 @@ THANKS                                                  *vim-jsx-pretty-thanks*
 
   - yuezk
   - y0za
+  - cormacrelf
 
 ===============================================================================
 INSPIREATION                                       *vim-jsx-pretty-inspiration*
