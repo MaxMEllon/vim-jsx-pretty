@@ -48,20 +48,12 @@ your `~/.vimrc`:
     Plug 'maxmellon/vim-jsx-pretty'
     ```
 
-- with: yajs.vim (If you use neovim, doesn't work.)
+- with: yajs.vim 
 
     ```vim
     Plug 'othree/yajs.vim'
     Plug 'maxmellon/vim-jsx-pretty'
     ```
-
-  If you want to use `yajs.vim`, you have to manually install indent config.
-  Because, `yajs.vim` not include indent config.
-
-  ```bash
-  $ mkdir -p ~/.vim/after/indent # if you use `nvim`, then ~/.config/nvim/after/indent
-  $ wget https://github.com/pangloss/vim-javascript/blob/master/indent/javascript.vim -O ~/.vim/after/indent/javascript.vim
-  ```
 
 - Execute command in vim:
 
@@ -102,9 +94,12 @@ let g:vim_jsx_pretty_colorful_config = 1 " default 0
 |jsxAttrib| `<tag id="sample">`<br />`_____~~__________`|
 |jsxEqual| `<tag id="sample">`<br />`_______~_________`|
 |jsxString| `<tag id="sample">`<br />`________~~~~~~~~_`|
-|jsxCloseTag| `</tag> ｜ <tag />`<br />`~~~~~~ ｜  _____~~` |
+|jsxCloseTag| `</tag>`<br />`~~~~~~` |
+|jsxCloseString| `<tag />`<br />`_____~~` |
 |jsxComponentName| `<Capitals>`<br />`_~~~~~~~~_` |
 |jsxDot| `<Parent.Child>`<br />`_______~______` |
+|jsxNamespace| `<foo:bar>`<br />`____~____` |
+|jsxPunct| `<tag></tag>`<br />`~___~~~___~` |
 
 Inspiration
 ---
