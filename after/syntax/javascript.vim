@@ -22,10 +22,10 @@ endif
 
 " check the javascript syntax file and cache it
 if !exists('s:js_syntax')
-  let syntax_list = execute('syntax list')
-  if syntax_list =~ "jsNoise"   " pangloss/vim-javascript
+  let s:syntax_list = execute('syntax list')
+  if s:syntax_list =~ "jsNoise"   " pangloss/vim-javascript
     let s:js_syntax = "vim-javascript"
-  elseif syntax_list =~ "javascriptOpSymbols"   " othree/yajs.vim
+  elseif s:syntax_list =~ "javascriptOpSymbols"   " othree/yajs.vim
     let s:js_syntax = "yajs"
   else  " build-in javascript syntax
     let s:js_syntax = "buildin"
