@@ -1,6 +1,8 @@
 vim-jsx-pretty
 =======
 
+The React syntax highlighting and indenting plugin for vim. Also supports the typescript tsx file.
+
 Demo
 ---
 
@@ -10,7 +12,7 @@ Demo
 |---|---|---|
 |![vim-jsx-pretty colorful](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty-colorful.png)|![vim-jsx-pretty](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx-pretty.png)|![vim-jsx](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/vim-jsx.png)|
 
-- auto indent (**with vim-javascript**)
+- auto indent
 
 ![Auto indent demo](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/auto-indent.gif)
 
@@ -18,7 +20,7 @@ Demo
 
 ![typescript demo](https://user-images.githubusercontent.com/9594376/32855974-beb2432a-ca86-11e7-99a4-85c2630aa5d5.png)
 
-Requirement
+Optional Dependencies
 ---
 
 - [**pangloss/vim-javascript**](https://github.com/pangloss/vim-javascript)
