@@ -48,20 +48,12 @@ your `~/.vimrc`:
     Plug 'maxmellon/vim-jsx-pretty'
     ```
 
-- with: yajs.vim (If you use neovim, doesn't work.)
+- with: yajs.vim 
 
     ```vim
     Plug 'othree/yajs.vim'
     Plug 'maxmellon/vim-jsx-pretty'
     ```
-
-  If you want to use `yajs.vim`, you have to manually install indent config.
-  Because, `yajs.vim` not include indent config.
-
-  ```bash
-  $ mkdir -p ~/.vim/after/indent # if you use `nvim`, then ~/.config/nvim/after/indent
-  $ wget https://github.com/pangloss/vim-javascript/blob/master/indent/javascript.vim -O ~/.vim/after/indent/javascript.vim
-  ```
 
 - Execute command in vim:
 
