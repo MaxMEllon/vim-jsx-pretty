@@ -143,8 +143,8 @@ function! jsx_pretty#common()
     highlight def link jsxString String
     highlight def link jsxDot Operator
     highlight def link jsxNamespace Operator
-    highlight def link jsxPunct Comment
-    highlight def link jsxCloseString jsxPunct
+    highlight def link jsxCloseString Comment
+    highlight def link jsxPunct jsxCloseString
   endif
 
   let s:vim_jsx_pretty_colorful_config = get(g:, 'vim_jsx_pretty_colorful_config', 0)
