@@ -99,7 +99,15 @@ function! jsx_indent#get(js_indent)
       endif
     elseif !s:syn_xmlish(prev_syn_eol)
       if prev_line =~ '\(&&\|||\|=>\|[([{]\)$'
-        return prev_ind + s:sw()
+        " <div>
+        "   {
+        "   }
+        " </div>
+        if line =~ '^[)\]}]'
+          return prev_ind
+        else
+          return prev_ind + s:sw()
+        endif
       else
         return prev_ind
       endif
