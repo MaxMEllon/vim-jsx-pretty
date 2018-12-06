@@ -40,6 +40,10 @@ function! s:syn_xmlish(syns)
   return s:syn_attr_jsx(get(a:syns, -1))
 endfunction
 
+function! s:syn_jsx_element(syns)
+  return get(a:syns, -1) =~ 'jsxElement'
+endfunction
+
 function! s:syn_jsx_escapejs(syns)
   return get(a:syns, -1) =~ '\(js\|javaScript\|typescript\)Braces' &&
         \ (get(a:syns, -2) =~ 'jsxEscapeJs' ||
@@ -66,8 +70,15 @@ function! jsx_indent#get(js_indent)
 
   if s:syn_xmlish(current_syn)
 
+    " {
+    "   <div></div>
+    " ##} <--
+    if s:syn_jsx_element(current_syn) && line =~ '}$'
+      let pair_line = searchpair('{', '', '}', 'b')
+      echom pair_line
+      return indent(pair_line)
     " close tag </tag> or /> including </>
-    if prev_line =~ s:end_tag . '$'
+    elseif prev_line =~ s:end_tag . '$'
       if line =~ '^<\s*' . s:end_tag
         return prev_ind - s:sw()
       elseif s:syn_jsx_attrib(prev_syn_sol)
@@ -126,8 +137,14 @@ function! jsx_indent#get(js_indent)
     endif
   elseif s:syn_jsx_escapejs(current_syn)
     if line =~ '^}'
-      let pair_line = searchpair('{', '', '}', 'b')
-      return indent(pair_line)
+      let char = getline('.')[col('.') - 1]
+      " When pressing enter after the }, keep the indent
+      if char != '}' && search('}', 'b', lnum)
+        return indent(lnum)
+      else
+        let pair_line = searchpair('{', '', '}', 'bW')
+        return indent(pair_line)
+      endif
     elseif line =~ '^{'
       if s:syn_jsx_escapejs(prev_syn_eol)
             \ || s:syn_jsx_attrib(prev_syn_sol)
