@@ -5,7 +5,3 @@ if exists("loaded_matchit")
 endif
 
 setlocal suffixesadd+=.tsx
-
-" only so other plugins can use &filetype, e.g. for languageId in a language
-" client
-autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
