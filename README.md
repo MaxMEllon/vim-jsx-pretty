@@ -3,6 +3,15 @@ vim-jsx-pretty
 
 The React syntax highlighting and indenting plugin for vim. Also supports the typescript tsx file.
 
+Features
+---
+
+- Fully implemented the JSX syntax specification. [https://github.com/facebook/jsx](https://github.com/facebook/jsx)
+- Support React syntax highlighting and indenting for JSX and typescript TSX files.
+- No dependencies for JSX highlighting and indenting.
+- Much more [corner test cases](test.js) covered.
+- [Reasonable syntax highlight groups](#syntax-group-list), easy for customization.
+
 Demo
 ---
 
@@ -39,6 +48,7 @@ your `~/.vimrc`:
 - with: vim-javascript (**Recommendation**)
 
     ```vim
+    " pangloss/vim-javascript is optional
     Plug 'pangloss/vim-javascript'
     Plug 'maxmellon/vim-jsx-pretty'
     ```
@@ -50,9 +60,10 @@ your `~/.vimrc`:
     Plug 'maxmellon/vim-jsx-pretty'
     ```
 
-- with: yajs.vim 
+- with: yajs.vim
 
     ```vim
+    " othree/yajs.vim is optional
     Plug 'othree/yajs.vim'
     Plug 'maxmellon/vim-jsx-pretty'
     ```
@@ -63,6 +74,24 @@ your `~/.vimrc`:
     :so ~/.vimrc
     :PlugInstall
     ```
+
+### Syntax group list
+
+|name|place|
+|---|---|
+|jsxElement| `<tag id="sample">text</tag>`<br />`~~~~~~~~~~~~~~~~~~~~~~~~~~~`|
+|jsxTag| `<tag id="sample">`<br />`~~~~~~~~~~~~~~~~~`|
+|jsxTagName| `<tag id="sample">`<br />`_~~~_____________`|
+|jsxComponentName| `<Capitals>`<br />`_~~~~~~~~_` |
+|jsxAttrib| `<tag id="sample">`<br />`_____~~__________`|
+|jsxEqual| `<tag id="sample">`<br />`_______~_________`|
+|jsxString| `<tag id="sample">`<br />`________~~~~~~~~_`|
+|jsxCloseTag| `</tag>`<br />`~~~~~~` |
+|jsxCloseString| `<tag />`<br />`_____~~` |
+|jsxDot| `<Parent.Child>`<br />`_______~______` |
+|jsxNamespace| `<foo:bar>`<br />`____~____` |
+|jsxPunct| `<tag></tag>`<br />`~___~~~___~` |
+
 
 Configuration
 ---
@@ -86,22 +115,6 @@ Colorful style (**vim-javascript only**)
 ```vim
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
 ```
-
-### Syntax group list
-
-|name|place|
-|---|---|
-|jsxTag| `<tag id="sample">`<br />`~~~~~~~~~~~~~~~~~`|
-|jsxTagName| `<tag id="sample">`<br />`_~~~_____________`|
-|jsxAttrib| `<tag id="sample">`<br />`_____~~__________`|
-|jsxEqual| `<tag id="sample">`<br />`_______~_________`|
-|jsxString| `<tag id="sample">`<br />`________~~~~~~~~_`|
-|jsxCloseTag| `</tag>`<br />`~~~~~~` |
-|jsxCloseString| `<tag />`<br />`_____~~` |
-|jsxComponentName| `<Capitals>`<br />`_~~~~~~~~_` |
-|jsxDot| `<Parent.Child>`<br />`_______~______` |
-|jsxNamespace| `<foo:bar>`<br />`____~____` |
-|jsxPunct| `<tag></tag>`<br />`~___~~~___~` |
 
 Inspiration
 ---
