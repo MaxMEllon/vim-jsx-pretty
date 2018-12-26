@@ -47,12 +47,12 @@ function test() {
   // correct
   foo = <br />
 
-  // corner case
-  if (a
-    < foo
-  ) {
-    a = b
-  }
+    // corner case
+    if (a
+      < foo
+    ) {
+      a = b
+    }
 
   foo = <>fragment</>;
   foo = <div>[<div>fragment</div>]</div>;
@@ -147,21 +147,45 @@ function testComment() {
 function testComponentName() {
   // shouldn't get a jsxComponentName on just Line here
   let x = <flatLine />
-    return (
-      <FlatList
-        style={{display: 'none', fontSize: 100}}
-        data={[{ key: "test", icon: <Icon style={APPICON} icon="test" /> }]}
-        numColumns={4}
-        horizontal={false}
-        renderItem={({ item }) => (
-          <View>
-            <View.Icon>
-              {item.icon}
-            </View.Icon>
-          </View>
-        )}
-      />
-    )
+  return (
+    <FlatList
+      style={{display: 'none', fontSize: 100}}
+      data={[{ key: "test", icon: <Icon style={APPICON} icon="test" /> }]}
+      numColumns={4}
+      horizontal={false}
+      renderItem={({ item }) => (
+        <View>
+          <View.Icon>
+            {item.icon}
+          </View.Icon>
+        </View>
+      )}
+    />
+  )
+}
+
+function testLitSyntax({ logs = [], ...props }, { show }) {
+  return html`
+    <div class="logs" ...${props}>
+      <button onClick=${() => this.toggle()}>Down</button>
+      <!-- If expanded, render all logs: -->
+      ${show && raw`
+        <section class="logs" ...${props}>
+          <!-- maps and values work just like JSX -->
+          ${logs.map(log => html`
+            <${Log} class="log" ...${log} />
+          `)}
+          <!--
+            multiline
+            comment
+          -->
+          <${Footer}>
+            footer content
+          <//>
+        </section>
+      `}
+    </div>
+  `;
 }
 
 export default <div>after default</div>;

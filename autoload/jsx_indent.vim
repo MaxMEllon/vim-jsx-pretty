@@ -45,17 +45,18 @@ function! s:syn_jsx_element(syns)
 endfunction
 
 function! s:syn_jsx_escapejs(syns)
-  return get(a:syns, -1) =~ '\(js\|javaScript\|typescript\)Braces' &&
+  return get(a:syns, -1) =~ '\(\(js\(Template\)\?\|javaScript\(Embed\)\?\|typescript\)Braces\|javascriptTemplateSB\|typescriptInterpolationDelimiter\)' &&
         \ (get(a:syns, -2) =~ 'jsxEscapeJs' ||
         \ get(a:syns, -3) =~ 'jsxEscapeJs')
 endfunction
 
 function! s:syn_jsx_attrib(syns)
-  return len(filter(copy(a:syns), 'v:val ==# "jsxAttrib"'))
+  return len(filter(copy(a:syns), 'v:val =~ "jsxAttrib"'))
 endfunction
 
 let s:start_tag = '<\s*\([-:_\.\$0-9A-Za-z]\+\|>\)'
-let s:end_tag = '/\s*[-:_\.\$0-9A-Za-z]*\s*>'
+" match `/end_tag>` and `//>`
+let s:end_tag = '/\%(\s*[-:_\.\$0-9A-Za-z]*\s*\|/\)>'
 let s:opfirst = '^' . get(g:,'javascript_opfirst',
       \ '\C\%([<>=,.?^%|/&]\|\([-:+]\)\1\@!\|\*\+\|!=\|in\%(stanceof\)\=\>\)')
 
@@ -63,6 +64,7 @@ function! jsx_indent#get(js_indent)
   let lnum = v:lnum
   let line = substitute(getline(lnum), '^\s*\|\s*$', '', 'g')
   let current_syn = s:syn_sol(lnum)
+  let current_syn_eol = s:syn_eol(lnum)
   let prev_syn_sol = s:syn_sol(lnum - 1)
   let prev_syn_eol = s:syn_eol(lnum - 1)
   let prev_line = s:prev_line(lnum)
@@ -75,8 +77,15 @@ function! jsx_indent#get(js_indent)
     " ##} <--
     if s:syn_jsx_element(current_syn) && line =~ '}$'
       let pair_line = searchpair('{', '', '}', 'b')
-      echom pair_line
       return indent(pair_line)
+    elseif line =~ '^-->$'
+      if prev_line =~ '^<!--'
+        return prev_ind
+      else
+        return prev_ind - s:sw()
+      endif
+    elseif prev_line =~ '-->$'
+      return prev_ind
     " close tag </tag> or /> including </>
     elseif prev_line =~ s:end_tag . '$'
       if line =~ '^<\s*' . s:end_tag
@@ -109,7 +118,7 @@ function! jsx_indent#get(js_indent)
         return prev_ind - s:sw()
       endif
     elseif !s:syn_xmlish(prev_syn_eol)
-      if prev_line =~ '\(&&\|||\|=>\|[([{]\)$'
+      if prev_line =~ '\(&&\|||\|=>\|[([{]\|`\)$'
         " <div>
         "   {
         "   }
@@ -145,18 +154,22 @@ function! jsx_indent#get(js_indent)
         let pair_line = searchpair('{', '', '}', 'bW')
         return indent(pair_line)
       endif
-    elseif line =~ '^{'
+    elseif line =~ '^{' || line =~ '^\${'
       if s:syn_jsx_escapejs(prev_syn_eol)
             \ || s:syn_jsx_attrib(prev_syn_sol)
         return prev_ind
-      elseif s:syn_xmlish(prev_syn_eol) && prev_line =~ s:end_tag
+      elseif s:syn_xmlish(prev_syn_eol) && (prev_line =~ s:end_tag || prev_line =~ '-->$')
         return prev_ind
       else
         return prev_ind + s:sw()
       endif
     endif
+  elseif s:syn_jsx_escapejs(current_syn_eol)
+    let pair_line = searchpair('{', '', '}', 'bW')
+    return indent(pair_line)
   else
     let ind = a:js_indent()
+
     " If current syntax is not a jsx syntax group
     if s:syn_xmlish(prev_syn_eol) && line !~ '^[)\]}]'
       let sol = matchstr(line, s:opfirst)

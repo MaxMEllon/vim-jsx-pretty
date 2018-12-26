@@ -47,12 +47,12 @@ function test() {
   // correct
   foo = <br />
 
-  // corner case
-  if (a
-    < foo
-  ) {
-    a = b
-  }
+    // TODO corner case
+    if (a
+      < foo
+    ) {
+      a = b
+    }
 
   foo = <>fragment</>;
   foo = <div>[<div>fragment</div>]</div>;
@@ -163,6 +163,30 @@ function testComponentName() {
       )}
     />
   )
+}
+
+function testLitSyntax({ logs = [], ...props }, { show }) {
+  return html`
+    <div class="logs" ...${props}>
+      <button onClick=${() => this.toggle()}>Down</button>
+      <!-- If expanded, render all logs: -->
+      ${show && raw`
+        <section class="logs" ...${props}>
+          <!-- maps and values work just like JSX -->
+          ${logs.map(log => html`
+            <${Log} class="log" ...${log} />
+          `)}
+          <!--
+            multiline
+            comment
+          -->
+          <${Footer} class="footer">
+            footer content
+          <//>
+        </section>
+      `}
+    </div>
+  `;
 }
 
 export default <div>after default</div>;

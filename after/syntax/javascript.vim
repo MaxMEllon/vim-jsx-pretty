@@ -38,7 +38,11 @@ elseif s:js_syntax == "yajs"   " othree/yajs.vim
   " refine the javascript line comment
   syntax region javascriptLineComment start=+//+ end=/$/ contains=@Spell,javascriptCommentTodo extend keepend
   syntax cluster javascriptValue add=jsxRegion
-  syntax cluster javascriptNoReserved add=jsxElement
+  syntax cluster javascriptNoReserved add=jsxElement,jsxTag
+
+  " add support to arrow function which returns a tagged template string, e.g.
+  " () => html`<div></div>`
+  syntax cluster afterArrowFunc add=javascriptTagRef
 else    " build-in javascript syntax
   " refine the javascript line comment
   syntax region javaScriptLineComment start=+//+ end=/$/ contains=@Spell,javascriptCommentTodo extend keepend
@@ -52,6 +56,10 @@ else    " build-in javascript syntax
         \ contains=javaScriptBlockBuildIn,@javaScriptEmbededExpr,javaScript.*
         \ fold
   syntax cluster javaScriptEmbededExpr add=jsxRegion
+
+  " refine the template string syntax
+  syntax region javaScriptStringT start=+`+ skip=+\\\\\|\\`+ end=+`+ contains=javaScriptSpecial,javaScriptEmbed,@htmlPreproc extend
+  syntax region javaScriptEmbed matchgroup=javaScriptEmbedBraces start=+\${+ end=+}+ contained contains=@javaScriptEmbededExpr,javaScript.*
 endif
 
 " because this is autoloaded, when developing you're going to need to source
