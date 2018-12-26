@@ -6,10 +6,11 @@ The React syntax highlighting and indenting plugin for vim. Also supports the ty
 Features
 ---
 
+- Support JSX highlighting and indenting out of the box. No dependencies.
 - Fully implemented the JSX syntax specification. [https://github.com/facebook/jsx](https://github.com/facebook/jsx)
 - Support React syntax highlighting and indenting for JSX and typescript TSX files.
-- No dependencies for JSX highlighting and indenting.
-- Much more [corner test cases](test.js) covered.
+- Support JSX syntax highlighting and indenting inside the [tagged template](https://github.com/developit/htm) string.
+- Many more [corner test cases](test.js) covered.
 - [Reasonable syntax highlight groups](#syntax-group-list), easy for customization.
 
 Demo
@@ -44,6 +45,12 @@ Installation
 ### vim-plug [https://github.com/junegunn/vim-plug](https://github.com/junegunn/vim-plug)
 
 your `~/.vimrc`:
+
+- No dependencies
+
+    ```vim
+    Plug 'maxmellon/vim-jsx-pretty'
+    ```
 
 - with: vim-javascript (**Recommendation**)
 
@@ -98,6 +105,7 @@ Configuration
 
 |name|default|description|
 |---|---|---|
+|`g:vim_jsx_pretty_template_tags`|`['html', 'raw']`|highlight JSX inside the tagged template string, set it to `[]` to disable this feature|
 |`g:vim_jsx_pretty_enable_jsx_highlight`|1|jsx highlight flag|
 |`g:vim_jsx_pretty_colorful_config`|0|colorful config flag|
 
