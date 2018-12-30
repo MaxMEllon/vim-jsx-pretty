@@ -148,7 +148,7 @@ function testComponentName() {
   // shouldn't get a jsxComponentName on just Line here
   let x = <flatLine />
   return (
-    <FlatList
+    <FlatList // inline comment
       style={{display: 'none', fontSize: 100}}
       data={[{ key: "test", icon: <Icon style={APPICON} icon="test" /> }]}
       numColumns={4}
