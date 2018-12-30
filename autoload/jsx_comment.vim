@@ -7,7 +7,9 @@ function! jsx_comment#update_comment_string(original)
     let start = len(matchstr(line, '^\s*'))
     let syn_name = s:syn_name(line('.'), start + 1)
 
-    if s:syn_contains(line('.'), col('.'), 'jsxTaggedRegion')
+    if line =~ '^\s*//'
+      let &l:commentstring = '// %s'
+    elseif s:syn_contains(line('.'), col('.'), 'jsxTaggedRegion')
       let &l:commentstring = '<!-- %s -->'
     elseif syn_name =~ '^jsxAttrib'
       let &l:commentstring = '// %s'
