@@ -44,6 +44,10 @@ function! s:syn_jsx_element(syns)
   return get(a:syns, -1) =~ 'jsxElement'
 endfunction
 
+function! s:syn_js_comment(syns)
+  return get(a:syns, -1) =~ 'Comment$'
+endfunction
+
 function! s:syn_jsx_escapejs(syns)
   return get(a:syns, -1) =~ '\(\(js\(Template\)\?\|javaScript\(Embed\)\?\|typescript\)Braces\|javascriptTemplateSB\|typescriptInterpolationDelimiter\)' &&
         \ (get(a:syns, -2) =~ 'jsxEscapeJs' ||
@@ -101,7 +105,8 @@ function! jsx_indent#get(js_indent)
       else
         return prev_ind - s:sw()
       endif
-    elseif prev_line =~ '^\(<\|>\)' && s:syn_xmlish(prev_syn_eol)
+    elseif prev_line =~ '^\(<\|>\)' &&
+          \ (s:syn_xmlish(prev_syn_eol) || s:syn_js_comment(prev_syn_eol))
       if line =~ '^<\s*' . s:end_tag
         return prev_ind
       else
@@ -167,6 +172,14 @@ function! jsx_indent#get(js_indent)
   elseif s:syn_jsx_escapejs(current_syn_eol)
     let pair_line = searchpair('{', '', '}', 'bW')
     return indent(pair_line)
+  elseif line =~ '^/[/*]' " js comment in jsx tag
+    if get(prev_syn_sol, -1) =~ 'jsxPunct'
+      return prev_ind + s:sw()
+    elseif synIDattr(synID(lnum - 1, 1, 1), 'name') =~ 'jsxTag'
+      return prev_ind
+    else
+      return a:js_indent()
+    endif
   else
     let ind = a:js_indent()
 

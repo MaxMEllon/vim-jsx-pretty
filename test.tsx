@@ -122,7 +122,8 @@ function tagFollowsPlainText() {
 function testComment() {
   return <div>
     <div
-      hoge
+      /* hello */
+      // hoge
       foo:bar="hello"
       hoge="string"
       hoge={foo > 0 ? 'foo' : 'bar'} // inline comment
