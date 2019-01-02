@@ -168,24 +168,21 @@ function! jsx_pretty#syntax#highlight()
     syntax match jsxComment +<!--\_.\{-}-->+ display
   endif
 
-  let s:vim_jsx_pretty_enable_jsx_highlight = get(g:, 'vim_jsx_pretty_enable_jsx_highlight', 1)
 
-  if s:vim_jsx_pretty_enable_jsx_highlight == 1
-    highlight def link jsxTag Function
-    highlight def link jsxTagName Identifier
-    highlight def link jsxComponentName Function
-    highlight def link jsxAttrib Type
-    highlight def link jsxAttribKeyword jsxAttrib
-    highlight def link jsxEqual Operator
-    highlight def link jsxString String
-    highlight def link jsxDot Operator
-    highlight def link jsxNamespace Operator
-    highlight def link jsxCloseString Comment
-    highlight def link jsxPunct jsxCloseString
-    highlight def link jsxCloseTag jsxCloseString
-    highlight def link jsxComment Comment
-    highlight def link jsxSpreadOperator Operator
-  endif
+  highlight def link jsxTag Function
+  highlight def link jsxTagName Identifier
+  highlight def link jsxComponentName Function
+  highlight def link jsxAttrib Type
+  highlight def link jsxAttribKeyword jsxAttrib
+  highlight def link jsxEqual Operator
+  highlight def link jsxString String
+  highlight def link jsxDot Operator
+  highlight def link jsxNamespace Operator
+  highlight def link jsxCloseString Comment
+  highlight def link jsxPunct jsxCloseString
+  highlight def link jsxCloseTag jsxCloseString
+  highlight def link jsxComment Comment
+  highlight def link jsxSpreadOperator Operator
 
   let s:vim_jsx_pretty_colorful_config = get(g:, 'vim_jsx_pretty_colorful_config', 0)
 
