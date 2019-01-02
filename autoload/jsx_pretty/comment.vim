@@ -1,4 +1,4 @@
-function! jsx_comment#update_comment_string(original)
+function! jsx_pretty#comment#update_commentstring(original)
   let syn_current = s:syn_name(line('.'), col('.'))
   let syn_start = s:syn_name(line('.'), 1)
 

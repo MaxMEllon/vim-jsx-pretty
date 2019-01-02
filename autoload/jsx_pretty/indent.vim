@@ -64,7 +64,7 @@ let s:end_tag = '/\%(\s*[-:_\.\$0-9A-Za-z]*\s*\|/\)>'
 let s:opfirst = '^' . get(g:,'javascript_opfirst',
       \ '\C\%([<>=,.?^%|/&]\|\([-:+]\)\1\@!\|\*\+\|!=\|in\%(stanceof\)\=\>\)')
 
-function! jsx_indent#get(js_indent)
+function! jsx_pretty#indent#get(js_indent)
   let lnum = v:lnum
   let line = substitute(getline(lnum), '^\s*\|\s*$', '', 'g')
   let current_syn = s:syn_sol(lnum)
