@@ -106,17 +106,7 @@ Configuration
 |name|default|description|
 |---|---|---|
 |`g:vim_jsx_pretty_template_tags`|`['html', 'raw']`|highlight JSX inside the tagged template string, set it to `[]` to disable this feature|
-|`g:vim_jsx_pretty_enable_jsx_highlight`|1|jsx highlight flag|
 |`g:vim_jsx_pretty_colorful_config`|0|colorful config flag|
-
-
-If you set `g:vim_jsx_pretty_enable_jsx_highlight`, Disable jsx highlight.
-But highlight group is set to jsx syntax. So you should set manual
-highlight setting.
-
-```vim
-let g:vim_jsx_pretty_enable_jsx_highlight = 0 " default 1
-```
 
 Colorful style (**vim-javascript only**)
 
