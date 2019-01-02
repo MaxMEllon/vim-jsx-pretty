@@ -1,4 +1,4 @@
-function! jsx_pretty#common()
+function! jsx_pretty#syntax#highlight()
 
   " <tag id="sample">
   " ~~~~~~~~~~~~~~~~~

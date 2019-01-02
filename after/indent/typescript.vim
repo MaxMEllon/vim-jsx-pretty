@@ -23,7 +23,7 @@ setlocal indentexpr=GetJsxIndent()
 setlocal indentkeys=0{,0},0),0],0\,,!^F,o,O,e,*<Return>,<>>,<<>,/
 
 function! GetJsxIndent()
-  return jsx_indent#get(function('GetTypescriptIndent'))
+  return jsx_pretty#indent#get(function('GetTypescriptIndent'))
 endfunction
 
 let &cpo = s:keepcpo

@@ -35,8 +35,8 @@ syntax region typescriptBlock
       \ fold
 
 " because this is autoloaded, when developing you're going to need to source
-" the autoload/jsx_pretty.vim file manually, or restart vim
-call jsx_pretty#common()
+" the autoload/jsx_pretty/*.vim file manually, or restart vim
+call jsx_pretty#syntax#highlight()
 
 syntax cluster typescriptExpression add=jsxRegion
 
