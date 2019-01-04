@@ -94,6 +94,7 @@ function test2() {
       < div foo="foo, bar">
         <div className="aaa, aaaa, aaaaaa">text</div>
         <div>{[1, 2].map(x => <span>{ x / 2 }</span>)}</div>
+        {global.name} text
       </div>
 
       <div foo>

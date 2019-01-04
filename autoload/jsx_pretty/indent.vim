@@ -115,6 +115,7 @@ function! jsx_pretty#indent#get(js_indent)
     elseif line =~ '^<\s*' . s:end_tag
       if !s:syn_xmlish(prev_syn_sol) 
         if s:syn_jsx_escapejs(prev_syn_eol)
+              \ || s:syn_jsx_escapejs(prev_syn_sol)
           return prev_ind - s:sw()
         else
           return prev_ind
