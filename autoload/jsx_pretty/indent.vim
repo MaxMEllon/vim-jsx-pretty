@@ -174,7 +174,7 @@ function! jsx_pretty#indent#get(js_indent)
     let pair_line = searchpair('{', '', '}', 'bW')
     return indent(pair_line)
   elseif line =~ '^/[/*]' " js comment in jsx tag
-    if get(prev_syn_sol, -1) =~ 'jsxPunct'
+    if get(prev_syn_sol, -1) =~ 'Punct'
       return prev_ind + s:sw()
     elseif synIDattr(synID(lnum - 1, 1, 1), 'name') =~ 'jsxTag'
       return prev_ind

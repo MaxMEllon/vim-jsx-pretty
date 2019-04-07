@@ -1,5 +1,7 @@
 function! jsx_pretty#syntax#highlight()
 
+  let s:highlight_close_tag = get(g:, 'vim_jsx_pretty_highlight_close_tag', 0)
+
   " <tag id="sample">
   " ~~~~~~~~~~~~~~~~~
   " and self close tag
@@ -7,7 +9,7 @@ function! jsx_pretty#syntax#highlight()
   " ~~~~~~~~~~~~~~~~~~~
   syntax region jsxTag
         \ start=+<+
-        \ matchgroup=jsxPunct
+        \ matchgroup=jsxOpenPunct
         \ end=+>+
         \ matchgroup=NONE
         \ end=+\(/\_s*>\)\@=+
@@ -54,8 +56,8 @@ function! jsx_pretty#syntax#highlight()
   " and fragment start tag
   " <>
   " ~~
-  syntax region jsxOpenTag
-        \ matchgroup=jsxPunct
+  exe 'syntax region jsxOpenTag
+        \ matchgroup=jsxOpenPunct
         \ start=+<+
         \ end=+>+
         \ matchgroup=NONE
@@ -64,7 +66,7 @@ function! jsx_pretty#syntax#highlight()
         \ contains=jsxTagName
         \ nextgroup=jsxAttrib
         \ skipwhite
-        \ skipempty
+        \ skipempty ' .(s:highlight_close_tag ? 'transparent' : '')
  
   " <foo.bar>
   "     ~
@@ -88,7 +90,7 @@ function! jsx_pretty#syntax#highlight()
   " </>
   " ~~~
   syntax region jsxCloseTag
-        \ matchgroup=jsxPunct
+        \ matchgroup=jsxClosePunct
         \ start=+<\_s*/+
         \ end=+>+
         \ contained
@@ -110,21 +112,21 @@ function! jsx_pretty#syntax#highlight()
   " NOT
   " <someCamel ...>
   "      ~~~~~
-  syntax match jsxComponentName
+  exe 'syntax match jsxComponentName
         \ +\<[A-Z][\$0-9A-Za-z]\+\>+
         \ contained
-        \ display
+        \ display ' .(s:highlight_close_tag ? 'transparent' : '')
 
   " <tag key={this.props.key}>
   "  ~~~
-  syntax match jsxTagName
+  exe 'syntax match jsxTagName
         \ +\<[-:_\.\$0-9A-Za-z]\+\>+
         \ contained
         \ contains=jsxComponentName,jsxDot,jsxNamespace
         \ nextgroup=jsxAttrib
         \ skipempty
         \ skipwhite
-        \ display
+        \ display ' .(s:highlight_close_tag ? 'transparent' : '')
 
   " <tag id="sample">
   "         ~~~~~~~~
@@ -139,7 +141,13 @@ function! jsx_pretty#syntax#highlight()
   " add support to JSX inside the tagged template string
   " https://github.com/developit/htm
   if s:enable_tagged_jsx
-    exe 'syntax region jsxTaggedRegion start=+\%('. join(s:tags, '\|') .'\)\@<=`+ms=s+1 end=+`+me=e-1 extend contained containedin=jsTemplateString,javascriptTemplate,javaScriptStringT,typescriptStringB contains=jsxElement'
+    exe 'syntax region jsxTaggedRegion
+          \ start=+\%('. join(s:tags, '\|') .'\)\@<=`+ms=s+1
+          \ end=+`+me=e-1
+          \ extend
+          \ contained
+          \ containedin=jsTemplateString,javascriptTemplate,javaScriptStringT,typescriptStringB
+          \ contains=jsxElement'
 
     syntax region jsxEscapeJs
           \ start=+\${+
@@ -149,7 +157,7 @@ function! jsx_pretty#syntax#highlight()
           \ contains=jsTemplateExpression,javascriptTemplateSubstitution,javaScriptEmbed,typescriptInterpolation
 
     syntax region jsxOpenTag
-          \ matchgroup=jsxPunct
+          \ matchgroup=jsxOpenPunct
           \ start=+<\%(\${\)\@=+
           \ matchgroup=NONE
           \ end=++
@@ -168,21 +176,32 @@ function! jsx_pretty#syntax#highlight()
     syntax match jsxComment +<!--\_.\{-}-->+ display
   endif
 
-
+  " Highlight the tag name
   highlight def link jsxTag Function
   highlight def link jsxTagName Identifier
   highlight def link jsxComponentName Function
+
   highlight def link jsxAttrib Type
   highlight def link jsxAttribKeyword jsxAttrib
   highlight def link jsxEqual Operator
   highlight def link jsxString String
   highlight def link jsxDot Operator
   highlight def link jsxNamespace Operator
+
+  " Highlight the jsxCloseString (i.e. />), jsxPunct (i.e. <,>) and jsxCloseTag (i.e. <//>)
   highlight def link jsxCloseString Comment
   highlight def link jsxPunct jsxCloseString
+  highlight def link jsxOpenPunct jsxPunct
+  highlight def link jsxClosePunct jsxPunct
   highlight def link jsxCloseTag jsxCloseString
+
   highlight def link jsxComment Comment
   highlight def link jsxSpreadOperator Operator
+
+  if s:highlight_close_tag
+    highlight! def link jsxOpenPunct jsxTag
+    highlight! def link jsxCloseString Identifier
+  endif
 
   let s:vim_jsx_pretty_colorful_config = get(g:, 'vim_jsx_pretty_colorful_config', 0)
 
