@@ -10,6 +10,7 @@ Features
 - Fully implemented the JSX syntax specification. [https://github.com/facebook/jsx](https://github.com/facebook/jsx)
 - Support React syntax highlighting and indenting for JSX and typescript TSX files.
 - Support JSX syntax highlighting and indenting inside the [tagged template](https://github.com/developit/htm) string.
+- Support highlighting the close tag separately from the open tag (`let g:vim_jsx_pretty_highlight_close_tag = 1`).
 - Many more [corner test cases](test.js) covered.
 - [Reasonable syntax highlight groups](#syntax-group-list), easy for customization.
 
