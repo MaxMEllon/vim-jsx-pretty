@@ -1,10 +1,8 @@
-vim-jsx-pretty
-=======
+# vim-jsx-pretty
 
 The React syntax highlighting and indenting plugin for vim. Also supports the typescript tsx file.
 
-Features
----
+## Features
 
 - 📦 Support JSX highlighting and indenting out of the box. No dependencies.
 - 💯 Fully implemented the JSX syntax specification. [https://github.com/facebook/jsx](https://github.com/facebook/jsx)
@@ -14,8 +12,7 @@ Features
 - 💪 Many more [corner test cases](test.js) covered.
 - 💅 [Reasonable syntax highlight groups](#syntax-group-list), easy for customization.
 
-Demo
----
+## Demo
 
 ### Syntax
 
@@ -27,12 +24,11 @@ Demo
 
 ![Auto indent demo](https://raw.githubusercontent.com/MaxMEllon/demos/master/vim-jsx-pretty/auto-indent.gif)
 
-### support typescript
+### Support typescript
 
 ![typescript demo](https://user-images.githubusercontent.com/9594376/32855974-beb2432a-ca86-11e7-99a4-85c2630aa5d5.png)
 
-Installation
----
+## Installation
 
 ### vim-plug [https://github.com/junegunn/vim-plug](https://github.com/junegunn/vim-plug)
 
@@ -65,7 +61,13 @@ your `~/.vimrc`:
     :PlugInstall
     ```
 
-### Syntax group list
+## ⚠️ Work with `vim-polyglot`
+
+Since `vim-polyglot` has already embedded this plugin, if you have installed `vim-polyglot`, you don't need to install this plugin anymore. But the bugfix for this plugin may not ship in `vim-polyglot` in time.
+
+If you still want to use this plugin, make sure that you put this plugin **ahead** of `vim-polyglot`, and add `let g:polyglot_disabled = ['jsx']` to your `vimrc`.
+
+## Syntax group list
 
 |name|place|
 |---|---|
@@ -83,8 +85,7 @@ your `~/.vimrc`:
 |jsxPunct| `<tag></tag>`<br />`~___~~~___~` |
 
 
-Configuration
----
+## Configuration
 
 |name|default|description|
 |---|---|---|
@@ -98,11 +99,10 @@ Colorful style (**vim-javascript only**)
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
 ```
 
-Inspiration
----
+## Inspiration
 
 - [vim-jsx](https://github.com/mxw/vim-jsx)
 
-LICENSE
----
+## LICENSE
+
 [MIT](./LICENSE.txt)
