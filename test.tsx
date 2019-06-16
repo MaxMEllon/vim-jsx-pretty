@@ -190,4 +190,9 @@ function testLitSyntax({ logs = [], ...props }, { show }) {
   `;
 }
 
+function testIndent() {
+  return <div>
+  </div>;
+}
+
 export default <div>after default</div>;

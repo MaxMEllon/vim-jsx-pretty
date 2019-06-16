@@ -132,7 +132,6 @@ function testComment() {
       hoge=<div>valid</div> // according to the jsx spec, this is equal to {<div></div>}
       hoge=<br /> // this is equal to {<br />}
       {...this.props}
-      {...this.props}
     >
       {...testComment()}
     </div>
@@ -189,6 +188,11 @@ function testLitSyntax({ logs = [], ...props }, { show }) {
       `}
     </div>
   `;
+}
+
+function testIndent() {
+  return <div>
+  </div>;
 }
 
 export default <div>after default</div>;
