@@ -47,7 +47,7 @@ function test() {
   // correct
   foo = <br />
 
-    // corner case
+    // TODO corner case
     if (a
       < foo
     ) {
@@ -91,7 +91,7 @@ function test() {
 function test2() {
   return (
     <>
-      < div foo="foo, bar">
+      <div foo="foo, bar">
         <div className="aaa, aaaa, aaaaaa">text</div>
         <div>{[1, 2].map(x => <span>{ x / 2 }</span>)}</div>
         {global.name} text
@@ -181,7 +181,7 @@ function testLitSyntax({ logs = [], ...props }, { show }) {
             multiline
             comment
           -->
-          <${Footer}>
+          <${Footer} class="footer">
             footer content
           <//>
         </section>
@@ -191,8 +191,27 @@ function testLitSyntax({ logs = [], ...props }, { show }) {
 }
 
 function testIndent() {
+  const a = <div>
+  </div>;
   return <div>
   </div>;
 }
 
-export default <div>after default</div>;
+module.exports = <div>
+  <div>
+    {
+      var a = <div>
+      </div>;
+    }
+  </div>
+</div>;
+
+export default <cx>
+  <MyComponent
+    attr={1}
+  />
+
+  <OtherComponent
+    attr={2}
+  />
+</cx>
