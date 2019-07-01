@@ -191,8 +191,27 @@ function testLitSyntax({ logs = [], ...props }, { show }) {
 }
 
 function testIndent() {
+  const a = <div>
+  </div>;
   return <div>
   </div>;
 }
 
-export default <div>after default</div>;
+module.exports = <div>
+  <div>
+    {
+      var a = <div>
+      </div>;
+    }
+  </div>
+</div>;
+
+export default <cx>
+  <MyComponent
+    attr={1}
+  />
+
+  <OtherComponent
+    attr={2}
+  />
+</cx>
