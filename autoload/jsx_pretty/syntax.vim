@@ -188,20 +188,21 @@ function! jsx_pretty#syntax#highlight()
   highlight def link jsxDot Operator
   highlight def link jsxNamespace Operator
 
-  " Highlight the jsxCloseString (i.e. />), jsxPunct (i.e. <,>) and jsxCloseTag (i.e. <//>)
-  highlight def link jsxCloseString Comment
+  if s:highlight_close_tag
+    highlight def link jsxCloseString Identifier
+    highlight def link jsxOpenPunct jsxTag
+  else
+    " Highlight the jsxCloseString (i.e. />), jsxPunct (i.e. <,>) and jsxCloseTag (i.e. <//>)
+    highlight def link jsxCloseString Comment
+    highlight def link jsxOpenPunct jsxPunct
+  endif
+
   highlight def link jsxPunct jsxCloseString
-  highlight def link jsxOpenPunct jsxPunct
   highlight def link jsxClosePunct jsxPunct
   highlight def link jsxCloseTag jsxCloseString
 
   highlight def link jsxComment Comment
   highlight def link jsxSpreadOperator Operator
-
-  if s:highlight_close_tag
-    highlight! def link jsxOpenPunct jsxTag
-    highlight! def link jsxCloseString Identifier
-  endif
 
   let s:vim_jsx_pretty_colorful_config = get(g:, 'vim_jsx_pretty_colorful_config', 0)
 
