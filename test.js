@@ -190,6 +190,26 @@ function testLitSyntax({ logs = [], ...props }, { show }) {
   `;
 }
 
+// #79
+const Foobar = () => {
+  return <div>
+    {(() => {
+      const foo="foo";
+      return <input className={"foo"}
+        value="bar"/>; // indent decreased!
+    })()}
+  </div>;
+};
+
+const Foobar = () => {
+  return <div>
+    {(() => {
+      return <input className="foo"
+        value="bar"/>;
+    })()}
+  </div>;
+};
+
 function testIndent() {
   const a = <div>
   </div>;
