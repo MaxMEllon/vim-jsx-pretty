@@ -50,9 +50,7 @@ else    " build-in javascript syntax
   syntax region javaScriptEmbed matchgroup=javaScriptEmbedBraces start=+\${+ end=+}+ contained contains=@javaScriptEmbededExpr,javaScript.*
 endif
 
-" because this is autoloaded, when developing you're going to need to source
-" the autoload/jsx_pretty/*.vim file manually, or restart vim
-call jsx_pretty#syntax#highlight()
+runtime syntax/jsx_pretty.vim
 
 let b:current_syntax = 'javascript.jsx'
 
