@@ -68,15 +68,15 @@ exe 'syntax region jsxOpenTag
 
 " <foo.bar>
 "     ~
-syntax match jsxDot +\.+ contained display
+syntax match jsxDot +\.+ contained
 
 " <foo:bar>
 "     ~
-syntax match jsxNamespace +:+ contained display
+syntax match jsxNamespace +:+ contained
 
 " <tag id="sample">
 "        ~
-syntax match jsxEqual +=+ contained display nextgroup=jsxString,jsxEscapeJs,jsxRegion skipwhite
+syntax match jsxEqual +=+ contained nextgroup=jsxString,jsxEscapeJs,jsxRegion skipwhite
 
 " <tag />
 "      ~~
@@ -103,7 +103,6 @@ syntax match jsxAttrib
       \ skipwhite
       \ skipempty
       \ contains=jsxAttribKeyword
-      \ display
 
 " <MyComponent ...>
 "  ~~~~~~~~~~~
@@ -113,7 +112,7 @@ syntax match jsxAttrib
 exe 'syntax match jsxComponentName
       \ +\<[A-Z][\$0-9A-Za-z]\+\>+
       \ contained
-      \ display ' .(s:highlight_close_tag ? 'transparent' : '')
+      \ ' .(s:highlight_close_tag ? 'transparent' : '')
 
 " <tag key={this.props.key}>
 "  ~~~
@@ -124,14 +123,14 @@ exe 'syntax match jsxTagName
       \ nextgroup=jsxAttrib
       \ skipempty
       \ skipwhite
-      \ display ' .(s:highlight_close_tag ? 'transparent' : '')
+      \ ' .(s:highlight_close_tag ? 'transparent' : '')
 
 " <tag id="sample">
 "         ~~~~~~~~
 " and
 " <tag id='sample'>
 "         ~~~~~~~~
-syntax region jsxString start=+\z(["']\)+  skip=+\\\%(\z1\|$\)+  end=+\z1+ contained contains=@Spell display
+syntax region jsxString start=+\z(["']\)+  skip=+\\\\\|\\\%(\z1\|$\)+  end=+\z1+ contained contains=@Spell
 
 let s:tags = get(g:, 'vim_jsx_pretty_template_tags', ['html', 'raw'])
 let s:enable_tagged_jsx = !empty(s:tags)
@@ -165,13 +164,13 @@ if s:enable_tagged_jsx
         \ skipwhite
         \ skipempty
 
-  syntax keyword jsxAttribKeyword class contained display
+  syntax keyword jsxAttribKeyword class contained
 
-  syntax match jsxSpreadOperator +\.\.\.+ contained display nextgroup=jsxEscapeJs skipwhite
+  syntax match jsxSpreadOperator +\.\.\.+ contained nextgroup=jsxEscapeJs skipwhite
 
-  syntax match jsxCloseTag +<//>+ display
+  syntax match jsxCloseTag +<//>+
 
-  syntax match jsxComment +<!--\_.\{-}-->+ display
+  syntax match jsxComment +<!--\_.\{-}-->+
 endif
 
 " Highlight the tag name
