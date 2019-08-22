@@ -1,18 +1,24 @@
 let s:highlight_close_tag = get(g:, 'vim_jsx_pretty_highlight_close_tag', 0)
 
+" detect jsx region
+syntax region jsxRegion
+      \ start=+\(\(\_[([,?:=+\-*/<>{}]\|&&\|||\|=>\|\<return\|\<default\|\<await\|\<yield\)\_s*\)\@<=<\_s*\(>\|\z(\(script\)\@!\<[_\$A-Za-z][-:_\.\$0-9A-Za-z]*\>\)\(\_s*\([-+*)\]}&|?]\|/\([/*]\|\_s*>\)\@!\)\)\@!\)+
+      \ end=++
+      \ contains=jsxElement
+
 " <tag id="sample">
 " ~~~~~~~~~~~~~~~~~
 " and self close tag
 " <tag id="sample"   />
 " ~~~~~~~~~~~~~~~~~~~
 syntax region jsxTag
-      \ start=+<+
       \ matchgroup=jsxOpenPunct
+      \ start=+<+
       \ end=+>+
       \ matchgroup=NONE
-      \ end=+\(/\_s*>\)\@=+
+      \ end=+\%(/\_s*>\)\@=+
       \ contained
-      \ contains=jsxOpenTag,jsxEscapeJs,jsxAttrib,jsComment,@javascriptComments,javaScriptLineComment,javaScriptComment,typescriptLineComment,typescriptComment,jsxSpreadOperator
+      \ contains=jsxTagName,jsxAttrib,jsComment,@javascriptComments,javaScriptLineComment,javaScriptComment,typescriptLineComment,typescriptComment
       \ keepend
       \ extend
 
@@ -33,12 +39,6 @@ syntax region jsxElement
       \ extend
       \ contained
       \ fold
-
-" detect jsx region
-syntax region jsxRegion
-      \ start=+\(\(\_[([,?:=+\-*/<>{}]\|&&\|||\|=>\|\<return\|\<default\|\<await\|\<yield\)\_s*\)\@<=<\_s*\(>\|\z(\(script\)\@!\<[_\$A-Za-z][-:_\.\$0-9A-Za-z]*\>\)\(\_s*\([-+*)\]}&|?]\|/\([/*]\|\_s*>\)\@!\)\)\@!\)+
-      \ end=++
-      \ contains=jsxElement
 
 " <tag key={this.props.key}>
 "          ~~~~~~~~~~~~~~~~
@@ -68,15 +68,15 @@ exe 'syntax region jsxOpenTag
 
 " <foo.bar>
 "     ~
-syntax match jsxDot +\.+ contained
+syntax match jsxDot +\.+ contained display
 
 " <foo:bar>
 "     ~
-syntax match jsxNamespace +:+ contained
+syntax match jsxNamespace +:+ contained display
 
 " <tag id="sample">
 "        ~
-syntax match jsxEqual +=+ contained nextgroup=jsxString,jsxEscapeJs,jsxRegion skipwhite
+syntax match jsxEqual +=+ contained display nextgroup=jsxString,jsxEscapeJs,jsxRegion skipwhite
 
 " <tag />
 "      ~~
@@ -103,6 +103,7 @@ syntax match jsxAttrib
       \ skipwhite
       \ skipempty
       \ contains=jsxAttribKeyword
+      \ display
 
 " <MyComponent ...>
 "  ~~~~~~~~~~~
@@ -112,7 +113,7 @@ syntax match jsxAttrib
 exe 'syntax match jsxComponentName
       \ +\<[A-Z][\$0-9A-Za-z]\+\>+
       \ contained
-      \ ' .(s:highlight_close_tag ? 'transparent' : '')
+      \ display ' .(s:highlight_close_tag ? 'transparent' : '')
 
 " <tag key={this.props.key}>
 "  ~~~
@@ -123,14 +124,14 @@ exe 'syntax match jsxTagName
       \ nextgroup=jsxAttrib
       \ skipempty
       \ skipwhite
-      \ ' .(s:highlight_close_tag ? 'transparent' : '')
+      \ display ' .(s:highlight_close_tag ? 'transparent' : '')
 
 " <tag id="sample">
 "         ~~~~~~~~
 " and
 " <tag id='sample'>
 "         ~~~~~~~~
-syntax region jsxString start=+\z(["']\)+  skip=+\\\\\|\\\%(\z1\|$\)+  end=+\z1+ contained contains=@Spell
+syntax region jsxString start=+\z(["']\)+  skip=+\\\%(\z1\|$\)+  end=+\z1+ contained contains=@Spell display
 
 let s:tags = get(g:, 'vim_jsx_pretty_template_tags', ['html', 'raw'])
 let s:enable_tagged_jsx = !empty(s:tags)
@@ -164,13 +165,13 @@ if s:enable_tagged_jsx
         \ skipwhite
         \ skipempty
 
-  syntax keyword jsxAttribKeyword class contained
+  syntax keyword jsxAttribKeyword class contained display
 
-  syntax match jsxSpreadOperator +\.\.\.+ contained nextgroup=jsxEscapeJs skipwhite
+  syntax match jsxSpreadOperator +\.\.\.+ contained display nextgroup=jsxEscapeJs skipwhite
 
-  syntax match jsxCloseTag +<//>+
+  syntax match jsxCloseTag +<//>+ display
 
-  syntax match jsxComment +<!--\_.\{-}-->+
+  syntax match jsxComment +<!--\_.\{-}-->+ display
 endif
 
 " Highlight the tag name
@@ -208,4 +209,3 @@ if s:vim_jsx_pretty_colorful_config == 1
   highlight def link jsArrowFuncArgs Type
   highlight def link jsFuncArgs Type
 endif
-
