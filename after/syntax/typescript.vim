@@ -24,19 +24,21 @@ endif
 " refine the typescript line comment
 syntax region typescriptLineComment start=+//+ end=/$/ contains=@Spell,typescriptCommentTodo,typescriptRef extend keepend
 
-" add a typescriptBlock group for typescript
-syntax region typescriptBlock
-      \ contained
-      \ matchgroup=typescriptBraces
-      \ start="{"
-      \ end="}"
-      \ extend
-      \ contains=@typescriptAll,@typescriptExpression,typescriptBlock
-      \ fold
+if !hlexists('typescriptTypeCast')
+  " add a typescriptBlock group for typescript
+  syntax region typescriptBlock
+        \ matchgroup=typescriptBraces
+        \ start="{"
+        \ end="}"
+        \ contained
+        \ extend
+        \ contains=@typescriptExpression,typescriptBlock
+        \ fold
+endif
+
+syntax cluster typescriptExpression add=jsxRegion,typescriptParens
 
 runtime syntax/jsx_pretty.vim
-
-syntax cluster typescriptExpression add=jsxRegion
 
 let b:current_syntax = 'typescript.tsx'
 
