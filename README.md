@@ -50,7 +50,8 @@ your `~/.vimrc`:
 - if you want to highlight tsx files.
 
     ```vim
-    Plug 'leafgarland/typescript-vim'
+    Plug 'HerringtonDarkholme/yats.vim'
+    " or Plug 'leafgarland/typescript-vim'
     Plug 'maxmellon/vim-jsx-pretty'
     ```
     
