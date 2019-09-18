@@ -1,7 +1,7 @@
 function! jsx_pretty#comment#update_commentstring(original)
   let syn_current = s:syn_name(line('.'), col('.'))
   let syn_start = s:syn_name(line('.'), 1)
-  let save_view = winsaveview()
+  let save_cursor = getcurpos()
 
   if syn_start =~? '^jsx'
     let line = getline(".")
@@ -22,7 +22,7 @@ function! jsx_pretty#comment#update_commentstring(original)
   endif
 
   " Restore the cursor position
-  call winrestview(save_view)
+  call setpos('.', save_cursor)
 endfunction
 
 function! s:syn_name(lnum, cnum)
