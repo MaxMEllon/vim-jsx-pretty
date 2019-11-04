@@ -20,7 +20,7 @@ if exists('s:current_syntax')
   let b:current_syntax = s:current_syntax
 endif
 
-if hlexists("jsNoise")    " pangloss/vim-javascript
+if hlexists("jsDebugger") || hlexists("jsNoise")    " yuezk/vim-js or pangloss/vim-javascript
   syntax cluster jsExpression add=jsxRegion
 elseif hlexists("javascriptOpSymbols")    " othree/yajs.vim
   " refine the javascript line comment
