@@ -90,6 +90,7 @@ If you still want to use this plugin, make sure that you put this plugin **ahead
 
 |name|default|description|
 |---|---|---|
+|`g:vim_jsx_pretty_disable_tsx`|0|Disable the syntax highlighting for tsx files|
 |`g:vim_jsx_pretty_template_tags`|`['html', 'jsx']`|highlight JSX inside the tagged template string, set it to `[]` to disable this feature|
 |`g:vim_jsx_pretty_highlight_close_tag`|0|highlight the close tag separately from the open tag|
 |`g:vim_jsx_pretty_colorful_config`|0|colorful config flag|
