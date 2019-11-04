@@ -2,6 +2,7 @@ import React from 'react';
 
 function test() {
   const a = 1;
+  const b = 1 << c;
   let foo;
   foo = (<div key={1}>after parenthesis</div>);
   foo = [<div key={1}>after bracket</div>, <div key={2}>after ,</div>];
