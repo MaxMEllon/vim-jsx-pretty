@@ -1,5 +1,10 @@
 " modified from html.vim
 " For matchit plugin
+
+if get(g:, 'vim_jsx_pretty_disable_tsx', 0)
+  finish
+endif
+
 if exists("loaded_matchit")
   let b:match_ignorecase = 0
   let b:match_words = '(:),\[:\],{:},<:>,' .
