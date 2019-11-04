@@ -36,7 +36,7 @@ syntax region jsxElement
 
 " detect jsx region
 syntax region jsxRegion
-      \ start=+\(\(\_[([,?:=+\-*/>{}]\|<\s\+\|&&\|||\|=>\|\<return\|\<default\|\<await\|\<yield\)\_s*\)\@<=<\_s*\(>\|\z(\(script\)\@!\<[_\$A-Za-z][-:_\.\$0-9A-Za-z]*\>\)\(\_s*\([-+*)\]}&|?,]\|/\([/*]\|\_s*>\)\@!\)\)\@!\)+
+      \ start=+\(\(\_[([,?:=+\-*/>{}]\|<\s\+\|&&\|||\|=>\|\<return\|\<default\|\<await\|\<yield\)\_s*\)\@<=<\_s*\(>\|\z(\(script\|T\s*>\s*(\)\@!\<[_\$A-Za-z][-:_\.\$0-9A-Za-z]*\>\)\(\_s*\([-+*)\]}&|?,]\|/\([/*]\|\_s*>\)\@!\)\)\@!\)+
       \ end=++
       \ contains=jsxElement
 

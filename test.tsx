@@ -1,5 +1,7 @@
 import React from 'react';
 
+const head = <T>(arr: T[]): T => arr[0]
+
 function test() {
   const a = 1;
   let foo;
