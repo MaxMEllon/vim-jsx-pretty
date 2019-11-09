@@ -44,7 +44,7 @@ else    " build-in javascript syntax
         \ contains=javaScriptBlock,@javaScriptEmbededExpr,javaScript.*
         \ fold
 
-  syntax cluster javaScriptEmbededExpr add=jsxRegion,javaScriptBlock
+  syntax cluster javaScriptEmbededExpr add=jsxRegion,javaScript.*
 endif
 
 runtime syntax/jsx_pretty.vim

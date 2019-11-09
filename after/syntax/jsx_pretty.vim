@@ -178,7 +178,7 @@ if s:enable_tagged_jsx
 
   syntax match jsxSpreadOperator +\.\.\.+ contained nextgroup=jsxEscapeJs skipwhite
 
-  syntax match jsxCloseTag +<//>+
+  syntax match jsxCloseTag +<//>+ contained
 
   syntax match jsxComment +<!--\_.\{-}-->+
 endif
