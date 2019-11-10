@@ -87,7 +87,7 @@ function test() {
   // should not match this
   foo = 1 <a
   foo = foo>a
-  foo = <div>hello, world</div>
+  foo = <div>hello, world</div>;
   var c = a < foo
 
   return <div>
@@ -159,7 +159,7 @@ function testComment() {
 
 function testComponentName() {
   // shouldn't get a jsxComponentName on just Line here
-  let x = <flatLine />
+  let x = <flatLine />;
   return (
     <FlatList // inline comment
       style={{display: 'none', fontSize: 100}}

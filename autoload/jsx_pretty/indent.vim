@@ -84,6 +84,14 @@ function s:is_embedded_comment(lnum)
   let last = get(syntax_stack, -1)
   let last_2nd = get(syntax_stack, -2)
 
+  " Patch code for pangloss/vim-javascript
+  " <div
+  "   /* hello */ <-- syntax stack is [..., jsxTag, jsComment, jsComment]
+  " >
+  if last_2nd =~ 'comment'
+    let last_2nd = get(syntax_stack, -3)
+  endif
+
   return last =~? 'comment' && last_2nd =~? 'jsxTag' &&
         \ trim(getline(a:lnum)) =~ '\%(^/[*/]\)\|\%(\*/$\)'
 endfunction
@@ -103,27 +111,27 @@ function s:is_jsx_attr(syntax)
   return a:syntax =~? 'jsxAttrib'
 endfunction
 
-" Whether the specified sytnax group is the jsxElement
+" Whether the specified syntax group is the jsxElement
 function s:is_jsx_element(syntax)
   return a:syntax =~? 'jsxElement'
 endfunction
 
-" Whether the specified sytnax group is the jsxTag
+" Whether the specified syntax group is the jsxTag
 function s:is_jsx_tag(syntax)
   return a:syntax =~? 'jsxTag'
 endfunction
 
-" Whether the specified sytnax group is the jsxBraces
+" Whether the specified syntax group is the jsxBraces
 function s:is_jsx_brace(syntax)
   return a:syntax =~? 'jsxBraces'
 endfunction
 
-" Whether the specified sytnax group is the jsxComment
+" Whether the specified syntax group is the jsxComment
 function s:is_jsx_comment(syntax)
   return a:syntax =~? 'jsxComment'
 endfunction
 
-" Whether the specified sytnax group is the jsxComment
+" Whether the specified syntax group is the jsxComment
 function s:is_jsx_backticks(syntax)
   return a:syntax =~? 'jsxBackticks'
 endfunction
@@ -321,7 +329,7 @@ function s:jsx_indent_attr(lnum)
   return indent(prev_lnum)
 endfunction
 
-" Compute the indent of the jsxElement
+" Compute the indentation of the jsxElement
 function s:jsx_indent_element(lnum)
   let [prev_lnum, prev_start_syntax, prev_end_syntax] = s:prev_info(a:lnum)
 
@@ -373,7 +381,7 @@ function s:jsx_indent_element(lnum)
   return indent(prev_lnum)
 endfunction
 
-" Compute the indent of jsxBraces
+" Compute the indentation of jsxBraces
 function s:jsx_indent_brace(lnum)
   let [prev_lnum, prev_start_syntax, prev_end_syntax] = s:prev_info(a:lnum)
   
@@ -427,7 +435,7 @@ function s:jsx_indent_brace(lnum)
   return indent(prev_lnum)
 endfunction
 
-" Compute the indent of the comment
+" Compute the indentation of the comment
 function s:jsx_indent_comment(lnum)
   let [prev_lnum, prev_start_syntax, prev_end_syntax] = s:prev_info(a:lnum)
 
@@ -435,6 +443,15 @@ function s:jsx_indent_comment(lnum)
   if s:is_jsx_comment(s:start_syntax(a:lnum))
     let line = trim(getline(a:lnum))
     if line =~ '^<!--'
+      " Patch code for yajs.vim
+      " ${logs.map(log => html`
+      "   <${Log} class="log" ...${log} />
+      " `)} <-- The backtick here is Highlighted as javascriptTemplate
+      " <!-- <-- Correct the indentation here
+      if !s:start_with_jsx(prev_lnum) && s:end_with_jsx(prev_lnum)
+        return indent(prev_lnum)
+      endif
+
       " Return the element indent for the opening comment
       return s:jsx_indent_element(a:lnum)
     elseif line =~ '^-->'
