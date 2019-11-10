@@ -14,6 +14,16 @@ function test() {
   foo = (
 
     <div>
+      {
+        a > 0
+          ? <div></div>
+          : <div></div>
+      }
+      {
+        a > 0 ?
+          <div></div> :
+          <div></div>
+      }
       {<div>after open brace</div>}
       <div>after close brace</div>
       <div>
@@ -77,7 +87,7 @@ function test() {
   // should not match this
   foo = 1 <a
   foo = foo>a
-  foo = <div>hello, world</div>
+  foo = <div>hello, world</div>;
   var c = a < foo
 
   return <div>
@@ -127,7 +137,7 @@ function testComment() {
       /* hello */
       // hoge
       foo:bar="hello"
-      hoge="string"
+      hoge="\\"
       hoge={foo > 0 ? 'foo' : 'bar'} // inline comment
       hoge={aaa} /* multiline comment */
       hoge=<div>valid</div> // according to the jsx spec, this is equal to {<div></div>}
@@ -149,7 +159,7 @@ function testComment() {
 
 function testComponentName() {
   // shouldn't get a jsxComponentName on just Line here
-  let x = <flatLine />
+  let x = <flatLine />;
   return (
     <FlatList // inline comment
       style={{display: 'none', fontSize: 100}}
@@ -172,7 +182,7 @@ function testLitSyntax({ logs = [], ...props }, { show }) {
     <div class="logs" ...${props}>
       <button onClick=${() => this.toggle()}>Down</button>
       <!-- If expanded, render all logs: -->
-      ${show && raw`
+      ${show && jsx`
         <section class="logs" ...${props}>
           <!-- maps and values work just like JSX -->
           ${logs.map(log => html`
@@ -221,8 +231,8 @@ function testIndent() {
 module.exports = <div>
   <div>
     {
-      var a = <div>
-      </div>;
+      <div>
+      </div>
     }
   </div>
 </div>;

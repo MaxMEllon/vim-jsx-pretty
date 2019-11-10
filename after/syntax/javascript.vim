@@ -27,27 +27,24 @@ elseif hlexists("javascriptOpSymbols")    " othree/yajs.vim
   syntax region javascriptLineComment start=+//+ end=/$/ contains=@Spell,javascriptCommentTodo extend keepend
   syntax cluster javascriptValue add=jsxRegion
   syntax cluster javascriptNoReserved add=jsxElement,jsxTag
-
-  " add support to arrow function which returns a tagged template string, e.g.
-  " () => html`<div></div>`
-  syntax cluster afterArrowFunc add=javascriptTagRef
 else    " build-in javascript syntax
   " refine the javascript line comment
   syntax region javaScriptLineComment start=+//+ end=/$/ contains=@Spell,javascriptCommentTodo extend keepend
+
+  " refine the template string syntax
+  syntax region javaScriptEmbed matchgroup=javaScriptEmbedBraces start=+\${+ end=+}+ contained contains=@javaScriptEmbededExpr
+
   " add a javaScriptBlock group for build-in syntax
-  syntax region javaScriptBlockBuildIn
-        \ contained
+  syntax region javaScriptBlock
         \ matchgroup=javaScriptBraces
         \ start="{"
         \ end="}"
+        \ contained
         \ extend
-        \ contains=javaScriptBlockBuildIn,@javaScriptEmbededExpr,javaScript.*
+        \ contains=javaScriptBlock,@javaScriptEmbededExpr,javaScript.*
         \ fold
-  syntax cluster javaScriptEmbededExpr add=jsxRegion
 
-  " refine the template string syntax
-  syntax region javaScriptStringT start=+`+ skip=+\\\\\|\\`+ end=+`+ contains=javaScriptSpecial,javaScriptEmbed,@htmlPreproc extend
-  syntax region javaScriptEmbed matchgroup=javaScriptEmbedBraces start=+\${+ end=+}+ contained contains=@javaScriptEmbededExpr,javaScript.*
+  syntax cluster javaScriptEmbededExpr add=jsxRegion,javaScript.*
 endif
 
 runtime syntax/jsx_pretty.vim

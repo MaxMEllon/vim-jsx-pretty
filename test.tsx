@@ -173,7 +173,7 @@ function testLitSyntax({ logs = [], ...props }, { show }) {
     <div class="logs" ...${props}>
       <button onClick=${() => this.toggle()}>Down</button>
       <!-- If expanded, render all logs: -->
-      ${show && raw`
+      ${show && jsx`
         <section class="logs" ...${props}>
           <!-- maps and values work just like JSX -->
           ${logs.map(log => html`
@@ -202,8 +202,8 @@ function testIndent() {
 module.exports = <div>
   <div>
     {
-      var a = <div>
-      </div>;
+      <div>
+      </div>
     }
   </div>
 </div>;
