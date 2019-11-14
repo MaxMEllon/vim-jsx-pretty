@@ -234,6 +234,7 @@ endfunction
 
 
 function! jsx_pretty#indent#get(js_indent)
+  let line = s:trim(getline(v:lnum))
   let start_syntax = s:start_syntax(v:lnum)
 
   if s:is_jsx_backticks(start_syntax)
@@ -244,7 +245,7 @@ function! jsx_pretty#indent#get(js_indent)
     return s:jsx_indent_element(v:lnum)
   endif
 
-  if s:is_opening_tag(start_syntax) && s:trim(getline(v:lnum)) =~ '^>'
+  if s:is_opening_tag(start_syntax) && line =~ '^>'
     return s:jsx_indent_trail_punct(v:lnum)
   endif
 
@@ -256,12 +257,12 @@ function! jsx_pretty#indent#get(js_indent)
     endif
 
     let prev_lnum = s:prev_lnum(v:lnum)
-    let prev_line = trim(getline(prev_lnum))
+    let prev_line = s:trim(getline(prev_lnum))
 
     if prev_line =~ '[([{=?]$'
       return indent(prev_lnum) + s:sw()
     elseif prev_line =~ '[:|&<>]$' &&
-          \ trim(getline(s:prev_lnum(prev_lnum))) !~ '[?:|&<>]$'
+          \ s:trim(getline(s:prev_lnum(prev_lnum))) !~ '[?:|&<>]$'
       return indent(prev_lnum) + s:sw()
     else
       return indent(prev_lnum)
@@ -285,7 +286,16 @@ function! jsx_pretty#indent#get(js_indent)
 
     return s:jsx_indent_element(v:lnum)
   elseif syntax_context == 'jsxEscapeJs'
-    return a:js_indent()
+    let prev_lnum = s:prev_lnum(v:lnum)
+    let prev_line = s:trim(getline(prev_lnum))
+
+    if line =~ '^?'
+      return indent(prev_lnum) + s:sw()
+    elseif line =~ '^:'
+      return indent(prev_lnum)
+    else
+      return a:js_indent()
+    endif
   endif
 
   return a:js_indent()

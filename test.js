@@ -1,5 +1,12 @@
 import React from 'react';
 
+const a = <div>
+  {condition
+    ? <div/>
+    : <span/>
+  }
+</div>;
+
 function test() {
   const a = 1;
   const b = 1 << c;
