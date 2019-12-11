@@ -62,7 +62,6 @@ highlight setting.
     highlight def link jsxNameSpace Function
     highlight def link jsxComment Error
     highlight def link jsxAttrib Type
-    highlight def link jsxEscapeJs jsxEscapeJs
     highlight def link jsxCloseTag Identifier
     highlight def link jsxCloseString Identifier
 
