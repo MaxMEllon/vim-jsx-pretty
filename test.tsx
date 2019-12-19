@@ -2,6 +2,10 @@ import React from 'react';
 
 const head = <T>(arr: T[]): T => arr[0]
 
+const foo = <string>bar;
+const foo = <string>bar;
+</string>
+
 function test() {
   const a = 1;
   let foo;
