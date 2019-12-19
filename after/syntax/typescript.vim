@@ -47,10 +47,10 @@ if !hlexists('typescriptTypeCast')
 endif
 
 runtime syntax/jsx_pretty.vim
-syntax cluster typescriptExpression add=jsxRegion,typescriptParens,tsCast
+syntax cluster typescriptExpression add=jsxRegion,typescriptParens
 " Fix type casting ambiguity with JSX syntax
 syntax match typescriptTypeBrackets +[<>]+ contained
-syntax match typescriptTypeCast +<\([_$A-Za-z0-9]\+\)>\%(\s*\%([_$A-Za-z0-9]\+\s*;\?\|(\)\%(\_[^<]*</\1>\)\@!\)\@=+ contains=typescriptTypeBrackets,@typescriptType
+syntax match typescriptTypeCast +<\([_$A-Za-z0-9]\+\)>\%(\s*\%([_$A-Za-z0-9]\+\s*;\?\|(\)\%(\_[^<]*</\1>\)\@!\)\@=+ contains=typescriptTypeBrackets,@typescriptType,typescriptType nextgroup=@typescriptExpression
 
 let b:current_syntax = 'typescript.tsx'
 
