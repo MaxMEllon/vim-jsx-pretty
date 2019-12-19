@@ -44,6 +44,7 @@ if !hlexists('typescriptTypeCast')
         \ extend
         \ contains=@typescriptExpression,typescriptBlock
         \ fold
+  hi def link typescriptTypeBrackets typescriptOpSymbols
 endif
 
 runtime syntax/jsx_pretty.vim
