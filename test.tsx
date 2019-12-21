@@ -2,6 +2,15 @@ import React from 'react';
 
 const head = <T>(arr: T[]): T => arr[0]
 
+const f = (
+  <div>
+    {/* this is a comment string */}
+    {/* '?? */}
+    {/* another ? */}
+    {/* what happend */}
+  </div>
+);
+
 const foo = <string>bar;
 const foo = <string>bar;
 </string>
