@@ -62,6 +62,22 @@ your `~/.vimrc`:
     :PlugInstall
     ```
 
+### Using Vim8's package manager
+
+```sh
+mkdir -p ~/.vim/pack/vim-jsx-pretty/start
+cd $_
+git clone git@github.com:MaxMEllon/vim-jsx-pretty.git
+```
+
+#### For Neovim
+
+```sh
+mkdir -p ~/.local/share/nvim/site/vim-jsx-pretty/start
+cd $_
+git clone git@github.com:MaxMEllon/vim-jsx-pretty.git
+```
+
 ## ⚠️ Work with `vim-polyglot`
 
 Since `vim-polyglot` has already embedded this plugin, if you have installed `vim-polyglot`, you don't need to install this plugin anymore. But the bugfix for this plugin may not ship in `vim-polyglot` in time.
