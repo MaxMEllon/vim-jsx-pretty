@@ -11,7 +11,7 @@
 if exists("loaded_matchit")
   let b:match_ignorecase = 0
   let b:match_words = '(:),\[:\],{:},<:>,' .
-        \ '<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
+        \ '<\@<=\([A-z0-9.]\+\):\(</\)\@<=\1'
 endif
 
 " For andymass/vim-matchup plugin
